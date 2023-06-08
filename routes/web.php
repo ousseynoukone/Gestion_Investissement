@@ -22,6 +22,35 @@ Route::resource('projets',ProjetController::class);
 Route::resource('investissements',InvestissementController::class);
 
 
-Route::get('/test', function () {
+Route::get('/entrepreneurs', function () {
+    return view('pages.entrepreneurs.home');
+})->name('entrepreneurs.home');
+
+Route::get('/projets', function () {
+    return view('pages.entrepreneurs.projets');
+})->name('entrepreneurs.projets');
+
+Route::get('/entrepreneurs/annonces', function () {
+    return view('pages.entrepreneurs.annonce');
+})->name('entrepreneurs.annonces');
+
+
+
+
+
+
+
+
+Route::get('/investisseurs', function () {
     return view('pages.investisseurs.home');
-});
+})->name('investisseurs.home');
+
+Route::get('/investisseurs/annonces', function () {
+    return view('pages.investisseurs.annonce');
+})->name('investisseurs.annonces');
+
+// Route::get('/investisseurs/annonces', function () {
+//     return view('pages.investisseurs.annonces');
+// })->name('investisseurs.annonces');
+
+

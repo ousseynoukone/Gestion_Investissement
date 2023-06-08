@@ -23,12 +23,13 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Investisseur</span>
+                        <span>Entrepreneur</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="{{route('investisseurs.home')}}" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Investissements</a>
-                    <a href="{{route('investisseurs.annonces')}}" class="nav-item nav-link "><i class="fa fa-keyboard me-2"></i>Les annonces</a>
+                    <a href="{{route('entrepreneurs.home')}}" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Investissement</a>
+                    <a href="{{route('entrepreneurs.projets')}}" class="nav-item nav-link "><i class="fa fa-keyboard me-2"></i>Mes projets</a>
+                    <a href="{{route('entrepreneurs.annonces')}}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Mes annonces</a>
     
                 </div>
             </nav>

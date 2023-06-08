@@ -1,5 +1,7 @@
 <?php
-
+use App\Http\Controllers\EntrepreneursController;
+use App\Http\Controllers\InvestisseursController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +19,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/test', function () {
-    return view('pages.investisseurs.home');
+Route::group(['middleware' => ['auth']], function() { 
+    Route::get('/dashboard', 'App\Http\Controllers\DashBoardController@index')->name('dashboard');
+
 });
+//Declaration des routes pour entrepreneurs et Investisseurs
+Route::resource('entrepreneurs',EntrepreneursController::class);
+Route::resource('investisseurs', InvestisseursController::class);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\InvestissementController;
+use App\Http\Controllers\ProjetController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('projets',ProjetController::class);
+Route::resource('investissements',InvestissementController::class);
 
 
 Route::get('/test', function () {

@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\InvestissementController;
 use App\Http\Controllers\ProjetController;
+
+use App\Http\Controllers\EntrepreneursController;
+use App\Http\Controllers\InvestisseursController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +25,12 @@ Route::get('/', function () {
 Route::resource('projets',ProjetController::class);
 Route::resource('investissements',InvestissementController::class);
 
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::group(['middleware' => ['auth']], function() { 
+    Route::get('/dashboard', 'App\Http\Controllers\DashBoardController@index')->name('dashboard') });
 
 Route::get('/entrepreneurs', function () {
     return view('pages.entrepreneurs.home');
@@ -53,4 +63,14 @@ Route::get('/investisseurs/annonces', function () {
 //     return view('pages.investisseurs.annonces');
 // })->name('investisseurs.annonces');
 
+//Declaration des routes pour entrepreneurs et Investisseurs
+Route::resource('entrepreneurs',EntrepreneursController::class);
+Route::resource('investisseurs', InvestisseursController::class);
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';

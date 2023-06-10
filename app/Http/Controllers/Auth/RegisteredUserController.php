@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\CheckRole;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -47,6 +48,13 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        if($user->role=="entrepreneurs")
+        {
+            return redirect()->route('EntrepreneurDashboard');
+        }else{
+            return redirect()->route("investisseurs.index");
+
+        }
+
     }
 }

@@ -3,15 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class InvestisseursController extends Controller
+
+class AnnonceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
-    { 
-        return (view('pages.investisseurs.home'));
+    {
+        if(Auth::user()->role=="entrepreneur")
+        {
+            return view("pages.entrepreneurs.annonce");
+        }else{
+            return view('pages.investisseurs.annonce');
+        }
     }
 
     /**

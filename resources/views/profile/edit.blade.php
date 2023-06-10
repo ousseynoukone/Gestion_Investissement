@@ -1,8 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
+            {{ __('Profile') }}        </h2>
+
+
+
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight mt-4 ">
+               @if(Auth::user()->role=="entrepreneur") <a href="{{route('entrepreneurs.index')}}"> @else <a href="{{route('investisseurs.index')}}" @endif
+                <img src="{{asset('build/imgs/arrow-left-solid.svg')}}" style="height: 25px ; width : 25px; display:inline;"  alt="Arrow left img">
+
+                {{ __("Accueil") }}
+            </a>
+            </h2>
     </x-slot>
 
     <div class="py-12">

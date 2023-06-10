@@ -28,10 +28,21 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+if(Auth::user()){
+        if(Auth::user()->role=="entrepreneur")
+        {
+            return redirect()->route('entrepreneurs.index');
 
+        }else{
+            return redirect()->route('investisseurs.index');
+
+        }
+        
+    }else{
         return redirect()->intended(RouteServiceProvider::HOME);
+        }
+    
     }
-
     /**
      * Destroy an authenticated session.
      */

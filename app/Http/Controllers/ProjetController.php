@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\projet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProjetController extends Controller
 {
@@ -12,7 +14,10 @@ class ProjetController extends Controller
      */
     public function index()
     {
-        //
+        if(Auth::user()->role=="entrepreneur")
+        {
+            return view('pages.entrepreneurs.projets');
+        }
     }
 
     /**

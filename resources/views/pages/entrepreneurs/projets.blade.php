@@ -27,9 +27,9 @@
                 </div>
             </div>
             <div class="navbar-nav w-100">
-                <a href="{{route('entrepreneurs.home')}}" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Investissement</a>
-                <a href="{{route('entrepreneurs.projets')}}" class="nav-item nav-link active"><i class="fa fa-keyboard me-2"></i>Mes projets</a>
-                <a href="{{route('entrepreneurs.annonces')}}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Mes annonces</a>
+                <a href="{{route('entrepreneurs.index')}}" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Investissement</a>
+                <a href="{{route('projets.index')}}" class="nav-item nav-link active"><i class="fa fa-keyboard me-2"></i>Mes projets</a>
+                <a href="{{route('annonces.index')}}" class="nav-item nav-link "><i class="fa fa-table me-2"></i>Mes annonces</a>
 
             </div>
         </nav>
@@ -116,13 +116,24 @@
                 </div>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                        <span class="d-none d-lg-inline-flex">John Doe</span>
+                        <img class="rounded-circle" src="{{asset('build/imgs/moi.png')}}" alt="" style="width: 40px; height: 40px;">
+                        <span class="d-none d-lg-inline-flex">{{ Auth::user()->name }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                        <a href="#" class="dropdown-item">Mon profile</a>
-                        <a href="#" class="dropdown-item">Parametre</a>
-                        <a href="#" class="dropdown-item">Se déconnecter</a>
+
+                        <a class="dropdown-item" href={{route('profile.edit')}}>
+                            {{ __('Mon profile') }}
+                        </a>
+
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <a class="dropdown-item" href="route('logout')"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                {{ __('Se déconnecter') }}
+                            </a>
+                        </form> 
                     </div>
                 </div>
             </div>

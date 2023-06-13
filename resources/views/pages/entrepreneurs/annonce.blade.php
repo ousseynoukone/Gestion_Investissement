@@ -143,7 +143,7 @@
 
 <!-- Table Start -->
 <div class="container-fluid pt-4 px-4">
-    <a type="button" class="btn btn-primary mb-2 custom-button" href="#add" id="addButton">Ajouter une annonce</a>
+    <a type="button" data-bs-toggle="modal" data-bs-target="#add" class="btn btn-primary mb-2 custom-button" href="#add"  id="addButton">Ajouter un projet</a>
 
     <div class="col-12">
         <div class="bg-secondary rounded h-100 p-4">
@@ -186,13 +186,14 @@
 
 
 
-            <div class="text-white" hidden id="add">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary">
-                            <h5 class="modal-title text-center" id="">Ajouter une annonce</h5>
-                        </div>
-                        <div class="modal-body bg-secondary">
+<div class="modal fade text-white" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+            <h5 class="modal-title  text-center"  id="">Publier une annonce</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body bg-secondary">
                             <form id="addForm" method="POST">
                                 @csrf
                                 <div class="form-group mt-1">
@@ -229,6 +230,8 @@
  
                                 <div class="mt-3 offset-5">
                                     <button type="submit" class="btn btn-primary mr-2">Publier</button>
+                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
+                      
                                 </div>
                             </form>
                         </div>

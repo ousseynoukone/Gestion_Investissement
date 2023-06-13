@@ -44,11 +44,12 @@
                 <div class="login__field">
               
 				<i class="login__icon fas fa-lock"></i>
-                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     <input type="password" class="login__input" placeholder="Mots de passe" id="password" class="block mt-1 w-full"
                                     type="password"
                                     name="password"
                                     required autocomplete="new-password" />
+									<x-input-error :messages="$errors->get('password')" class="mt-2" />
+
                 </div>
 
                 
@@ -59,7 +60,7 @@
                                         type="password"
                                         name="password_confirmation" required autocomplete="new-password" />
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-                    </div>
+                </div>
 				
 				<button class="button login__submit">
 					<span class="button__text">Inscription</span>

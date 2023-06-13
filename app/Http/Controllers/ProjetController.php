@@ -15,7 +15,7 @@ class ProjetController extends Controller
     public function index()
     {
         if(Auth::user()->role=="entrepreneur")
-        {   $projets = Projet::paginate(5);
+        {   $projets = Projet::where('user_id',Auth::user()->id) ->paginate(5);
             $currentDate = date('Y-m-d');
             $currentDatePlusOne = date('Y-m-d', strtotime($currentDate . ' +1 day'));
 

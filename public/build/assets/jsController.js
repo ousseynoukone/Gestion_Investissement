@@ -1,7 +1,7 @@
-$('#addProjectButton').click(function() {
-    $('#addProject').removeAttr('hidden');
+$('#addButton').click(function() {
+    $('#add').removeAttr('hidden');
     
-    var targetOffset = $('#addProject').offset().top;
+    var targetOffset = $('#add').offset().top;
     var scrollLimit = 100;
     
     var maxScrollPosition = Math.min(targetOffset - scrollLimit, $('body').height() - $(window).height());
@@ -28,11 +28,11 @@ $(document).ready(function() {
     var hasInvalidField = $('.form-control').hasClass('is-invalid');
 
 if (hasInvalidField) {
-  $('#addProject').removeAttr('hidden');
+  $('#add').removeAttr('hidden');
 
 
 
-  var targetOffset = $('#addProject').offset().top;
+  var targetOffset = $('#add').offset().top;
   var scrollLimit = 100; // Adjust this value to set the scroll limit
   
   // Calculate the maximum scroll position based on the target offset and scroll limit

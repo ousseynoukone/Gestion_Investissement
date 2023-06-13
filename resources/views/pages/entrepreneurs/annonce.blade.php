@@ -139,41 +139,105 @@
             </nav>
             <!-- Navbar End -->
 
+{{-- Tableau d'affichage --}}
 
-            <div class="container-fluid pt-4 px-4">
-                <div class="col-12">
+<!-- Table Start -->
+<div class="container-fluid pt-4 px-4">
+    <a type="button" class="btn btn-primary mb-2 custom-button" href="#add" id="addButton">Ajouter une annonce</a>
 
-                    <div class="bg-secondary rounded h-100 p-4">
-                        <h6 class="mb-4">Liste de mes annonces</h6>
-                        @if (count($annonces) == 0)
-                            <div class="alert alert-danger text-center text-white" style="   background-color: #bb1c1c;
-">
-                                Vous n'avez publié aucune annonce
-                            </div>
-                        @else
-                            <div class="row">
-                                @foreach ($annonces as $annonce)
-                                    <div class="col-md-6 mb-4">
-                                        <div class="card">
-                                            <div class="card-body" style="color:#ffe8e8">
-                                                <h5 class="card-title">{{$annonce->libelle}}</h5>
-                                                <p class="card-text">Montant: {{$annonce->montant}}</p>
-                                                <p class="card-text">Investisseur: {{$annonce->investisseurs}}</p>
-                                                <p class="card-text">Entrepreneur: {{$annonce->entrepreuneurs}}</p>
-                                                <p class="card-text">Projet: {{$annonce->projet->libelle}}</p>
-                                                <p class="card-text">Date: {{$annonce->date_investissement}}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                                {{$annonces->links("pagination::bootstrap-5")}}
-                            </div>
-                        @endif
+    <div class="col-12">
+        <div class="bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">Liste de mes annonces</h6>
+            <div class="table-responsive">
+                @if (count($annonces) == 0)
+                    <div class="alert alert-danger text-center text-white"
+                        style="background-color: #bb1c1c;">Vous n'avez enregistré aucune annonce</div>
+                @else
+                    <table class="table" style="color: #ffe8e8">
+                        <thead>
+                            <tr style="color: #ffacac">
+                                <th scope="col">Libellé</th>
+                                <th scope="col">Coût</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($annonces as $annonce)
+                                <tr>
+                                    <td>{{ strlen($annonce->libelle) > 15 ? substr($annonce->libelle, 0, 15) . '...' : $annonce->libelle }}</td>
+                                    <td>{{ $annonce->cout }}</td>
+
+                                    <td><a class="btn btn-sm btn-primary"
+                                            href="{{ route('annonces.show', ['annonce' => $annonce]) }}">Detail</a></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    {{ $annonces->links("pagination::bootstrap-5") }}
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+            <div class="text-white" hidden id="add">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                            <h5 class="modal-title text-center" id="">Ajouter une annonce</h5>
+                        </div>
+                        <div class="modal-body bg-secondary">
+                            <form id="addForm" method="POST">
+                                @csrf
+                                <div class="form-group mt-1">
+                                    <label for="libelle">Libellé</label>
+                                    <textarea type="text" rows="5" class="form-control @error('libelle') is-invalid @enderror" id="libelle" name="libelle" > {{ old('libelle') }}</textarea>
+                                    @error('libelle')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group mt-1">
+                                    <label for="cout">Coût</label>
+                                    <input type="number" class="form-control @error('cout') is-invalid @enderror" id="cout" name="cout" required value="{{ old('cout') }}">
+                                    @error('cout')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+
+                                <div class="form-group mt-1">
+                                    <label for="">Choisir un projet</label>
+                                <select  class="form-select " id="projet"  name="projet_id" aria-label="Default select example">
+                                    <option selected value="">Il s'agit de quel projet ?</option>
+                                    @foreach ($projets as $projet )
+                                    <option value="{{$projet->id}}"> {{$projet->libelle}}</option>
+
+     
+                                    @endforeach
+                                                                     </select>
+                                              
+
+                         
+                                </div>
+
+ 
+                                <div class="mt-3 offset-5">
+                                    <button type="submit" class="btn btn-primary mr-2">Publier</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
             
 
+ 
 
                     <!-- Footer Start -->
                     <div class="container-fluid pt-4 px-4">

@@ -68,7 +68,7 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle"  src="{{asset('build/imgs/moi.png')}}" alt="" style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -78,7 +78,7 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle"  src="{{asset('build/imgs/moi.png')}}" alt="" style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -140,7 +140,39 @@
             <!-- Navbar End -->
 
 
+            <div class="container-fluid pt-4 px-4">
+                <div class="col-12">
 
+                    <div class="bg-secondary rounded h-100 p-4">
+                        <h6 class="mb-4">Liste de mes annonces</h6>
+                        @if (count($annonces) == 0)
+                            <div class="alert alert-danger text-center text-white" style="   background-color: #bb1c1c;
+">
+                                Vous n'avez publié aucune annonce
+                            </div>
+                        @else
+                            <div class="row">
+                                @foreach ($annonces as $annonce)
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body" style="color:#ffe8e8">
+                                                <h5 class="card-title">{{$annonce->libelle}}</h5>
+                                                <p class="card-text">Montant: {{$annonce->montant}}</p>
+                                                <p class="card-text">Investisseur: {{$annonce->investisseurs}}</p>
+                                                <p class="card-text">Entrepreneur: {{$annonce->entrepreuneurs}}</p>
+                                                <p class="card-text">Projet: {{$annonce->projet->libelle}}</p>
+                                                <p class="card-text">Date: {{$annonce->date_investissement}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                {{$annonces->links("pagination::bootstrap-5")}}
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            
 
 
                     <!-- Footer Start -->

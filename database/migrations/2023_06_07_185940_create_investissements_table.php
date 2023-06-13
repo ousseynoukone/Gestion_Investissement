@@ -13,7 +13,19 @@ return new class extends Migration
     {
         Schema::create('investissements', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->float('montant');
+            $table->integer('investisseur_id')->unsigned();
+            $table->integer('entrepreneur_id')->unsigned();
+            $table->date('date_investissement');
+            $table->string('conditions');
+            $table->float('partDeParticipation');
+            $table->timestamps(); 
+            $table->foreignId('projet_id')->constrained();
+
+            $table->foreign('investisseur_id')->references('id')->on('users');
+            $table->foreign('entrepreneur_id')->references('id')->on('users');
+        
+        
         });
     }
 

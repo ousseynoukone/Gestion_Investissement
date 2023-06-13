@@ -17,7 +17,7 @@
 				<!-- Name -->
 				<div class="login__field">
 				<i class="login__icon fas fa-user"></i>
-					<input type="text" class="login__input" placeholder="name" id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name"/>
+					<input type="text" class="login__input" placeholder="Nom complet" id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name"/>
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
 				</div>
 				 <!-- Email Address -->
@@ -34,8 +34,8 @@
 					<!-- <x-input-label for="role" :value="__('Je suis :  ')" /> -->
 					<select id="role" onchange="voitureEnable()" name="role" class="login__input block mt-1 w-full custom-select" style="height: 40px;" required>
 						<option value="">Qui Etes Vous.........</option>
-						<option value="entrepreneur" {{ old('role') == 'entrepreneurs' ? 'selected' : '' }}>Entrepreneurs</option>
-						<option value="investisseur" {{ old('role') == 'investisseurs' ? 'selected' : '' }}>Investisseurs</option>
+						<option value="entrepreneur" {{ old('role') == 'entrepreneurs' ? 'selected' : '' }}>Entrepreneur</option>
+						<option value="investisseur" {{ old('role') == 'investisseurs' ? 'selected' : '' }}>Investisseur</option>
 					</select>
 					<x-input-error :messages="$errors->get('role')" class="mt-2" />
 				</div>
@@ -45,7 +45,7 @@
               
 				<i class="login__icon fas fa-lock"></i>
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                    <input type="password" class="login__input" placeholder="Password" id="password" class="block mt-1 w-full"
+                    <input type="password" class="login__input" placeholder="Mots de passe" id="password" class="block mt-1 w-full"
                                     type="password"
                                     name="password"
                                     required autocomplete="new-password" />
@@ -55,7 +55,7 @@
 				<!-- Confirm Password -->
                 <div class="login__field">
 				<i class="login__icon fas fa-lock"></i>
-                <input type="password" class="login__input" placeholder="Confirm Password" id="password_confirmation" class="block mt-1 w-full"
+                <input type="password" class="login__input" placeholder="Confirmez mots de passe" id="password_confirmation" class="block mt-1 w-full"
                                         type="password"
                                         name="password_confirmation" required autocomplete="new-password" />
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />

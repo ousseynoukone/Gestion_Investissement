@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Annonce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,10 +15,12 @@ class AnnonceController extends Controller
     public function index()
     {
         if(Auth::user()->role=="entrepreneur")
-        {
-            return view("pages.entrepreneurs.annonce");
+        {   
+            $annonces = Annonce::where('user_id',Auth::user()->id)->paginate(5);;
+            return view("pages.entrepreneurs.annonce",compact('annonces'));
         }else{
-            return view('pages.investisseurs.annonce');
+            $annonces = Annonce::paginate(5);
+            return view('pages.investisseurs.annonce',compact('annonces'));
         }
     }
 

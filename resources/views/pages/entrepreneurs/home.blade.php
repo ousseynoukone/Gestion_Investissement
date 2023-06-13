@@ -70,7 +70,7 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle"  src="{{asset('build/imgs/moi.png')}}" alt="" style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -80,7 +80,7 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle"  src="{{asset('build/imgs/moi.png')}}" alt="" style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -219,9 +219,14 @@
                         <h6 class="mb-0">Les investissements reçus</h6>
                     </div>
                     <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0" style="color:#ffe8e8">
+                            @if (count($investissements)==0)
+                            <div class="alert alert-danger text-center text-white" style="   background-color: #bb1c1c;
+                            " >Vous n'avez reçu aucun investissement</div>
+                                
+                            @else
                             <thead>
-                                <tr class="text-white">
+                                <tr style="color:#ffacac">
                                     <th scope="col">Montant</th>
                                     <th scope="col">Investisseur</th>
                                     <th scope="col">Entrepreneur</th>
@@ -231,19 +236,24 @@
                                 </tr>
                             </thead>
                             <tbody>
+        
+                                @foreach($investissements as $investissement)
                                 <tr>
-                                    <td>01 Jan 2045</td>
-                                    <td>INV-0123</td>
-                                    <td>Jhon Doe</td>
-                                    <td>$123</td>
-                                    <td>Paid</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                    <td>{{ $investissement->montant }}</td>
+                                    <td>{{ $investissement->investisseur->name }}</td>
+                                    <td>{{ $investissement->entrepreneur->name }}</td>
+                                    <td>{{ $investissement->projet->libelle}}</td>
+                                    <td>{{ $investissement->date_investissement }}</td>
+                                    <td><a class="btn btn-sm btn-primary" href="{{ route('investissement.show', ['investissement' => $investissement]) }}">Detail</a></td>
                                 </tr>
-                 
-                  
                             
-                            </tbody>
+                            </tbody>  
+                              @endforeach
+                              {{$investissements->links("pagination::bootstrap-5")}}
+
+                                @endif
                         </table>
+                        
                     </div>
                 </div>
             </div>

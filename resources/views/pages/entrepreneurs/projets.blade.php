@@ -69,7 +69,7 @@
                         <hr class="dropdown-divider">
                         <a href="#" class="dropdown-item">
                             <div class="d-flex align-items-center">
-                                <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                <img class="rounded-circle"  src="{{asset('build/imgs/moi.png')}}" alt="" style="width: 40px; height: 40px;">
                                 <div class="ms-2">
                                     <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                     <small>15 minutes ago</small>
@@ -79,7 +79,7 @@
                         <hr class="dropdown-divider">
                         <a href="#" class="dropdown-item">
                             <div class="d-flex align-items-center">
-                                <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                <img class="rounded-circle"  src="{{asset('build/imgs/moi.png')}}" alt="" style="width: 40px; height: 40px;">
                                 <div class="ms-2">
                                     <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                     <small>15 minutes ago</small>
@@ -139,38 +139,126 @@
             </div>
         </nav>
             <!-- Navbar End -->
+{{-- 
+    
+ Boite Mondal pour ajouter un   projet 
+    --}}
 
+      
+
+  
 
             <!-- Table Start -->
             <div class="container-fluid pt-4 px-4">
+                <a type="button" class="btn btn-primary mb-2 custom-button" href="#addProject"  id="addProjectButton">Ajouter un projet</a>
 
                     <div class="col-12">
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">Liste de mes projets</h6>
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table " style="color:#ffe8e8">
+                                    @if (count($projets)==0)
+                                    <div class="alert alert-danger text-center text-white" style="    background-color: #bb1c1c;
+                                    " >Vous n'avez enregistré aucun projet</div>
+                                        
+                                    @else
                                     <thead>
-                                        <tr>
+                                        <tr style="color:#ffacac">
                                             <th scope="col">Libelle</th>
+                                            <th scope="col">Description</th>
                                             <th scope="col">Cout</th>
-                                            <th scope="col">Date de publication</th>
+                                            <th scope="col">Date de debut</th>
+                                            <th scope="col">Date de fin</th>
+                                            <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+
+                                        @foreach ($projets as  $projet)
                                         <tr>
-                                            <td>John</td>
-                                            <td>Doe</td>
-                                            <td>jhon@email.com</td>
+                                            <td>{{ strlen($projet->libelle) > 15 ? substr($projet->libelle, 0, 15) . '...' : $projet->libelle }}</td>
+                                            <td>{{ strlen($projet->description) > 30 ? substr($projet->description, 0, 30) . '...' : $projet->description }}</td>
+
+                                            <td>{{$projet->cout}}</td>
+
+                                            <td>{{$projet->date_debut}}</td>
+                                            <td>{{$projet->date_fin}}</td>
+                                            <td><a class="btn btn-sm btn-primary" href="{{ route('projets.show', ['projet' => $projet]) }}">Detail</a></td>
+
                                         </tr>
                      
+                                   
                                     </tbody>
+                                    @endforeach
+                                    {{ $projets->links("pagination::bootstrap-5") }}
+
+                                    @endif
+
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-        
             <!-- Table End -->
+            <div class=" text-white" hidden id="addProject" >
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header bg-primary ">
+                      <h5 class="modal-title  text-center"  id="">Ajouter un projet</h5>
+        
+                    </div>
+                    <div class="modal-body bg-secondary">
+                      <form  id="addProjectForm"  method="POST">
+                        @csrf
+                        <div class="form-group">
+                          <label for="libelle">Libellé</label>
+                          <input type="text" class="form-control @error('libelle') is-invalid @enderror" id="libelle" name="libelle" value="{{ old('libelle') }}">
+                          
+                          @error('libelle')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+        
+                        </div>
+        
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea rows="4" cols="50" maxlength="200" type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" >{{ old('description') }}</textarea>
+                        
+                            @error('description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                          <label for="cout">Coût</label>
+                          <input type="number" class="form-control  @error('cout') is-invalid @enderror" id="cout" name="cout" required value="{{ old('cout') }}" >
+                          @error('cout')
+                          <div class="invalid-feedback ">{{ $message }}</div>
+                          @enderror
+                        
+                        </div>
+                        <div class="form-group">
+
+                          <label for="date_debut">Date de début</label>
+                          <input type="date" id="date" min="{{$currentDate}}" class="form-control   @error('date_debut') is-invalid @enderror" id="date_debut" name="date_debut" value="{{ old('date_debut') }}"  required>
+                          @error('date_debut')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+                        </div>
+                        <div class="form-group">
+                          <label for="date_fin">Date de fin</label>
+                          <input type="date" min="{{$currentDatePlusOne}}"  id="date" class="form-control  @error('date_fin') is-invalid @enderror" id="date_fin" name="date_fin" value="{{old('date_fin')}}" required>
+                          @error('date_fin')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+                        </div>
+                        <div class="mt-3 offset-5 ">
+                        <button type="submit" class="btn btn-primary mr-2">Ajouter</button>
+                    </div>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">

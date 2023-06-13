@@ -15,8 +15,12 @@ class ProjetController extends Controller
     public function index()
     {
         if(Auth::user()->role=="entrepreneur")
-        {
-            return view('pages.entrepreneurs.projets');
+        {   $projets = Projet::paginate(5);
+            $currentDate = date('Y-m-d');
+            $currentDatePlusOne = date('Y-m-d', strtotime($currentDate . ' +1 day'));
+
+     
+            return view('pages.entrepreneurs.projets',compact('projets', 'currentDate', 'currentDatePlusOne'));
         }
     }
 
@@ -25,7 +29,7 @@ class ProjetController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -33,9 +37,22 @@ class ProjetController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'libelle' => 'required|regex:/^(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s\S\p{P}:,\')("&\-_;]{1,50}(?![\p{P}\s])$/u',
+            'description' => 'required|regex:/^(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s\S\p{P}:,\')("&\-_;]{1,200}(?![\p{P}\s])$/u',
+            'cout' => 'required|numeric|min:1000',
+            'date_debut' => 'required|date',
+            'date_fin' => 'required|date',
+        ]);
+        $validatedData['user_id'] = auth()->user()->id;
 
+    
+        // Create the project
+        $project = Projet::create($validatedData);
+    
+        return (redirect()->route('projets.index'));
+    }
+    
     /**
      * Display the specified resource.
      */

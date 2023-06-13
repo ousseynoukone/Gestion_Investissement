@@ -48,9 +48,9 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        if($user->role=="entrepreneurs")
+        if($user->role=="entrepreneur")
         {
-            return redirect()->route('EntrepreneurDashboard');
+            return redirect()->route('entrepreneurs.index');
         }else{
             return redirect()->route("investisseurs.index");
 

@@ -2,21 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Investissement;
-use App\Models\Projet;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-class EntrepreneursController extends Controller
+
+class JsController extends Controller
 {
     /**
-     * Display a listing of the resouerce.
+     * Display a listing of the resource.
      */
     public function index()
-    {    
+    {
         
-$investissements = Investissement::where('entrepreneur_id', Auth::user()->id)->paginate(5);
-
-        return (view('pages.entrepreneurs.home',compact('investissements')));
     }
 
     /**

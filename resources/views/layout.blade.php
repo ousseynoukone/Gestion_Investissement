@@ -7,7 +7,6 @@
     <link href="{{ asset('build/assets/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('build/assets/style.css') }}" rel="stylesheet">
     
-    <link rel="stylesheet" href="{{ asset('vendor/pagination.css') }}">
 
 
     <!-- Google Web Fonts -->
@@ -34,10 +33,10 @@
       </div>
     
 </body>
-<script src="{{ asset('build/assets/bootstrap.min.js') }}"></script>
 
 <script src="{{ asset('build/assets/jquery-3.6.0.js') }}"></script>
-<script src="{{ asset('build/assets/script.js') }}"></script>
+<script src="{{ asset('build/assets/bootstrap.min.js') }}"></script>
+
 <script src="{{ asset('build/assets/jsController.js') }}"></script>
 <script src="{{ asset('build/assets/main.js') }}"></script>
 

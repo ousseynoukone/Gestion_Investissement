@@ -42,12 +42,20 @@ class AnnonceController extends Controller
     {  
 
         //controle de saisie doit etre fait ! 
+        $validatedData = $request->validate([
+            'libelle' => 'required |max:200' ,
+            'projet_id' => 'required | numeric' ,
+
+            'cout' => 'required | numeric' 
+        ]
+        );
+        $projet = Projet::find($request->get('projet_id'));
 
         $currentDate = new DateTime();
 
         $annonces = new Annonce();
         $annonces->libelle = $request->get('libelle');
-        $annonces->cout = $request->get('cout');
+        $annonces->cout = $projet->cout;
         $annonces->user_id = Auth::user()->id;
         $annonces->projet_id = $request->get('projet_id');
         $annonces->date_pub =  $currentDate;
@@ -55,7 +63,6 @@ class AnnonceController extends Controller
 
         $annonces->save();
 
-        $projet = Projet::find($request->get('projet_id'));
         $projet->annonce_id = $annonces->id  ;
         $projet->update();
 
@@ -67,7 +74,11 @@ class AnnonceController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $annonce =Annonce::with('projet')->find($id);
+        $projets = Projet::where('user_id',Auth::user()->id)->get() ;
+
+        return (view('pages.entrepreneurs.editFolder.annonce-edit',compact('annonce','projets')));
+        
     }
 
     /**
@@ -91,6 +102,8 @@ class AnnonceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $annonce = Annonce::find($id);
+        $annonce->delete();
+        return(redirect()->route('annonces.index'));
     }
 }

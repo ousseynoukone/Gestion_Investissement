@@ -183,7 +183,19 @@
 
                                             <td>{{$projet->date_debut}}</td>
                                             <td>{{$projet->date_fin}}</td>
-                                            <td><a class="btn btn-sm btn-primary" href="{{ route('projets.show', ['projet' => $projet]) }}">Detail</a></td>
+                                            <td>
+                                                
+                                                <a  type="button" id="detail" class="btn btn-sm btn-primary"  onclick="loadProjectDetail({{$projet->id}})" href="{{route('projets.edit',['projet'=>$projet])}}">Détail</a>
+                                        <form method="POST" action="{{route('projets.destroy',['projet'=>$projet])}}" accept-charset="UTF-8" style="display:inline">
+                                            {{ method_field('DELETE') }}
+                                            {{ csrf_field() }}
+                                            <button  class="btn btn-sm btn-primary"    ><img src="{{asset('build/imgs/remove.png')}}" height="20"  alt=""> </button>
+
+                          
+                                          </form>
+                                        </td>
+
+                                        
 
                                         </tr>
                      
@@ -202,7 +214,7 @@
             <!-- Table End -->
             <!-- Button trigger modal -->
 
-  <!-- Modal -->
+  <!-- Modal  pour ajout de projet-->
   <div class="modal fade text-white" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -215,7 +227,7 @@
               @csrf
               <div class="form-group mt-1">
                 <label for="libelle">Libellé</label>
-                <input type="text" class="form-control @error('libelle') is-invalid @enderror" id="libelle" name="libelle" value="{{ old('libelle') }}">
+                <input type="text" class="form-control ajoutModalErrorShow @error('libelle')  is-invalid @enderror" id="libelle" name="libelle" value="{{ old('libelle') }}">
                 
                 @error('libelle')
                 <div class="invalid-feedback">{{ $message }}</div>
@@ -225,38 +237,40 @@
 
               <div class="form-group mt-1">
                   <label for="description">Description</label>
-                  <textarea rows="4" cols="50" maxlength="200" type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" >{{ old('description') }}</textarea>
+                  <textarea rows="4" cols="50" maxlength="200" type="text" class="form-control ajoutModalErrorShow @error('description')  is-invalid @enderror" id="description" name="description" >{{ old('description') }}</textarea>
               
                   @error('description')
                   <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
               </div>
+
               <div class="form-group mt-1">
                 <label for="cout">Coût</label>
-                <input type="number" class="form-control  @error('cout') is-invalid @enderror" id="cout" name="cout" required value="{{ old('cout') }}" >
+                <input type="number" class="form-control ajoutModalErrorShow  @error('cout')  is-invalid @enderror" id="cout" name="cout" required value="{{ old('cout') }}" >
                 @error('cout')
                 <div class="invalid-feedback ">{{ $message }}</div>
                 @enderror
               
               </div>
+
               <div class="form-group mt-1">
 
                 <label for="date_debut">Date de début</label>
-                <input type="date" id="date" min="{{$currentDate}}" class="form-control   @error('date_debut') is-invalid @enderror" id="date_debut" name="date_debut" value="{{ old('date_debut') }}"  required>
+                <input type="date" id="date" min="{{$currentDate}}" class="form-control ajoutModalErrorShow   @error('date_debut')  is-invalid @enderror" id="date_debut" name="date_debut" value="{{ old('date_debut') }}"  required>
                 @error('date_debut')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
               </div>
+
               <div class="form-group mt-1">
                 <label for="date_fin">Date de fin</label>
-                <input type="date" min="{{$currentDatePlusOne}}"  id="date" class="form-control  @error('date_fin') is-invalid @enderror" id="date_fin" name="date_fin" value="{{old('date_fin')}}" required>
+                <input type="date" min="{{$currentDate}}"  id="date" class="form-control ajoutModalErrorShow  @error('date_fin')  is-invalid  @enderror" id="date_fin" name="date_fin" value="{{old('date_fin')}}" required>
                 @error('date_fin')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
               </div>
               <div class="mt-3 offset-5 ">
               <button type="submit" class="btn btn-primary mr-2">Ajouter</button>
-              <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
 
           </div>
           </form>
@@ -264,9 +278,7 @@
         </div>
       </div>
     </div>
-  </div>
 
-  
 
 
             <!-- Footer Start -->
@@ -279,7 +291,6 @@
           
                     </div>
                 </div>
-            </div>
             <!-- Footer End -->
         </div>
         <!-- Content End -->

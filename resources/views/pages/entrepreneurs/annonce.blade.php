@@ -143,7 +143,7 @@
 
 <!-- Table Start -->
 <div class="container-fluid pt-4 px-4">
-    <a type="button" data-bs-toggle="modal" data-bs-target="#add" class="btn btn-primary mb-2 custom-button" href="#add"  id="addButton">Ajouter un projet</a>
+    <a type="button" data-bs-toggle="modal" data-bs-target="#add" class="btn btn-primary mb-2 custom-button" href="#add"  id="addButton">Publier une annonce</a>
 
     <div class="col-12">
         <div class="bg-secondary rounded h-100 p-4">
@@ -151,7 +151,7 @@
             <div class="table-responsive">
                 @if (count($annonces) == 0)
                     <div class="alert alert-danger text-center text-white"
-                        style="background-color: #bb1c1c;">Vous n'avez enregistré aucune annonce</div>
+                        style="background-color: #bb1c1c;">Vous n'avez publié aucune annonce</div>
                 @else
                     <table class="table" style="color: #ffe8e8">
                         <thead>
@@ -198,26 +198,18 @@
                                 @csrf
                                 <div class="form-group mt-1">
                                     <label for="libelle">Libellé</label>
-                                    <textarea type="text" rows="5" class="form-control @error('libelle') is-invalid @enderror" id="libelle" name="libelle" > {{ old('libelle') }}</textarea>
+                                    <textarea required  type="text" rows="5" class="form-control @error('libelle') is-invalid @enderror" id="libelle" name="libelle" > {{ old('libelle') }}</textarea>
                                     @error('libelle')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group mt-1">
-                                    <label for="cout">Coût</label>
-                                    <input type="number" class="form-control @error('cout') is-invalid @enderror" id="cout" name="cout" required value="{{ old('cout') }}">
-                                    @error('cout')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-
+                                
                                 <div class="form-group mt-1">
                                     <label for="">Choisir un projet</label>
-                                <select  class="form-select " id="projet"  name="projet_id" aria-label="Default select example">
-                                    <option selected value="">Il s'agit de quel projet ?</option>
+                                <select  required  onchange="coutDisplay()"  class="form-select " id="projet_id"  name="projet_id" aria-label="Default select example">
+                                    <option  selected value="">Il s'agit de quel projet ?</option>
                                     @foreach ($projets as $projet )
-                                    <option value="{{$projet->id}}"> {{$projet->libelle}}</option>
+                                    <option @if ( old('projet_id')==$projet->id ) {{"selected"}}    @endif value="{{$projet->id}}"> {{$projet->libelle}}</option>
 
      
                                     @endforeach
@@ -226,6 +218,18 @@
 
                          
                                 </div>
+                                <div class="form-group mt-1">
+                                    <label for="cout">Coût</label>
+                                    <input type="number" readonly class="form-control   @error('cout') is-invalid @enderror"  id="coutAddForm" name="cout" required value="{{ old('cout') }}">
+                                    @error('cout')
+                                    
+                                    <div class="invalid-feedback">{{ $message }}</div>
+
+                                    @enderror
+                           
+                                </div>
+
+
 
  
                                 <div class="mt-3 offset-5">
@@ -261,5 +265,7 @@
                 <!-- Back to Top -->
                 <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
             </div>
+
+         
         @endsection
         

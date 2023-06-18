@@ -23,6 +23,8 @@
 
           <div class="row" >
               <div class="col-md-6">
+                <div class="card bg-secondary">
+                  <div class="card-header text-white bg-primary">Projet</div>
                 <div class="form-group mt-1">
                   <label for="libelle">Libellé</label>
                   <input type="text" class="form-control detailProject @error('libelle') is-invalid @enderror" id="detail_projet_libelle" name="libelle" value=" {{ (old('libelle'))? old('libelle') : $projet->libelle }}">
@@ -62,44 +64,49 @@
                   <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
                 </div>
+                </div>
               </div>
 
-              {{-- AU CAS OU IL YA PAS D'INVESTISSEMENT --}}
-              <div class="col-md-6" id="investissementAlert" >
-                  <div class="form-group mt-1 " style="justify-content: center;">
-                    <label for="" style="" class="badge bg-primary">Il n'y a pas d'investissement sur ce projet <img height="20" src="{{asset('build/imgs/remove.png')}}" alt=""></label>
-                  </div>
 
-              </div>
 
               
-              <div class="col-md-6" id="investissementDiv" hidden>
+              <div class="col-md-6" id="investissementDiv" >
                 @if($projet->investissement!=null)
+                <div class="card bg-secondary">
+                <div class="card-header text-white bg-primary">Investissement</div>
+
                 <div class="form-group mt-1">
                   <label for="montant">Montant</label>
-                  <input type="number" class="form-control" id="detail_projet_montant" name="montant" value="{{$projet->Investissement->montant}}">
+                  <input readonly type="number" class="form-control" id="detail_projet_montant" name="montant" value="{{$projet->investissement->montant}}">
                 </div>
               
                 <div class="form-group mt-1">
                   <label for="investisseur">Nom de l'investisseur</label>
-                  <input type="text" class="form-control" id="detail_projet_investisseur" name="investisseur" value="{{$projet->Investisseur->name}} ">
+                  <input readonly type="text" class="form-control" id="detail_projet_investisseur" name="investisseur" value="{{$projet->investissement->investisseur->name}} ">
                 </div>
               
                 <div class="form-group mt-1">
                   <label for="date_investissement">Date d'investissement</label>
-                  <input type="date" class="form-control" id="detail_projet_date_investissement" value="{{$projet->Investissement->date_investissement}}" name="date_investissement" >
+                  <input readonly type="text" class="form-control" id="detail_projet_date_investissement" value="{{$projet->investissement->date_investissement}}" name="date_investissement" >
                 </div>
               
                 <div class="form-group mt-1">
                   <label for="conditions">Conditions</label>
-                  <textarea type="text" class="form-control" id="detail_projet_conditions"  value="{{$projet->Investissement->conditions}}"  name="conditions" rows="4" > </textarea>
+                  <textarea readonly type="text" class="form-control" id="detail_projet_conditions"   name="conditions" rows="4" >{{$projet->investissement->conditions}}</textarea>
                 </div>
               
                 <div class="form-group mt-1">
                   <label for="partDeParticipation">Part de participation</label>
-                  <input type="number" class="form-control" id="detail_projet_partDeParticipation"  value="{{$projet->Investissement->partDeParticipation}}"  name="partDeParticipation" >
+                  <input readonly type="text" class="form-control" id="detail_projet_partDeParticipation"  value="{{$projet->investissement->partDeParticipation}}%  "  name="partDeParticipation" >
                 </div>
+              </div>
+@else              {{-- AU CAS OU IL YA PAS D'INVESTISSEMENT --}}
+<div class="col-md-6" id="investissementAlert" >
+    <div class="form-group mt-1 " style="justify-content: center;">
+      <label for="" style="" class="badge bg-primary">Il n'y a pas d'investissement sur ce projet <img height="20" src="{{asset('build/imgs/remove.png')}}" alt=""></label>
+    </div>
 
+</div>
                 @endif
               </div>
             

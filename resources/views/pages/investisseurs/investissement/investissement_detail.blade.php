@@ -69,31 +69,49 @@
     <div class="card-body">
       <h5 class="card-title">Entrepreneur : <span style="color:#DC143C">{{$investissement->entrepreneur->name}}</span> </h5>
    
-      <div class="row" >
+      <div class="row">
+        <div class="card col-md-6">
+            <div class="card-title">Concernant le projet</div>
+    
+            <p class="card-text">Titre: {{$investissement->projet? $investissement->projet->libelle : "Pas de projet"}}</p>
+            <p class="card-text">Cout: {{$investissement->projet? $investissement->projet->cout : "Pas de projet"}} CFA</p>
+            <p class="card-text">Date de début: {{$investissement->projet? $investissement->projet->date_debut : "Pas de projet"}}</p>
+            <p class="card-text">Date de fin: {{$investissement->projet? $investissement->projet->date_fin : "Pas de projet"}}</p>
+            <div class="card col-md-7 mb-2" style="height: 5rem ; align-content:center;">
+              <p class="card-title">              Statut: 
+                <span>
+                  @if($investissement->projet->statut == 0)
+                  En Attente <img src="{{asset('build/imgs/stop.png')}}" height="30" alt="">
+              @elseif ($investissement->projet->statut == 1)
+                En Cours  <img src="{{asset('build/imgs/play.png')}}" height="30" alt="">
+              @else
+                Achevé !  <img src="{{asset('build/imgs/succes.png')}}" height="30" alt="">
+              @endif
+                </span>
+              </p>
+           
+          </div>
+          
 
-      <div class="card col-md-6 ">
-        <div class="card-title">  Concernant le projet</div>
-
-        <p class="card-text">Titre : {{$investissement->projet? $investissement->projet->libelle : "Pas de projet"}}</p>
-        <p class="card-text">Cout : {{$investissement->projet? $investissement->projet->cout : "Pas de projet"}} CFA</p>
-        <p class="card-text">Date de début : {{$investissement->projet? $investissement->projet->date_debut : "Pas de projet"}}</p>
-        <p class="card-text">Date de fin : {{$investissement->projet? $investissement->projet->date_fin : "Pas de projet"}}</p>
-
-        <div class="card">
-          Description : {{$investissement->projet->description}}
+          
+            <div class="card">
+                Description: {{$investissement->projet->description}}
+            </div>
+        </div>
+    
+        <div class="card col-md-5 offset-1">
+            <div class="card-title">Concernant l'investissement</div>
+    
+            <p class="card-text">Montant: {{$investissement->montant}} CFA</p>
+            <p class="card-text">Part de participation: {{$investissement->partDeParticipation}}%</p>
+    
+            <div class="card">
+                <div class="card-title">Statut</div>
+                <p class="card-text">@if($investissement->etat )  Accepté <img class="ml-4" src="{{ asset('build/imgs/succes.png') }}" height="30" alt="Validé">   @else En attente <img class="ml-4" src="{{ asset('build/imgs/stop.png') }}" height="30" alt="En attente"></p> @endif
+            </div>
         </div>
     </div>
-
-    <div class="card col-md-5 offset-1 ">
-      <div class="card-title">Concernant l'investissement</div>
-
-      <p class="card-text">Montant : {{$investissement->montant}} CFA</p>
-      <p class="card-text">Part de participation : {{$investissement->partDeParticipation}}%</p>
-
-  </div>
     
- 
-      </div>
 
       <div class="row">
         <div class="card col-md-6 mt-2 offset-3">
@@ -111,14 +129,6 @@
 
            <a class="btn btn-primary  custom-button">Contacter {{$investissement->entrepreneur->name}}</a>
 
-            @if($investissement->etat==true)
-        
-          Validé  <img class="ml-4" src="{{ asset('build/imgs/succes.png') }}" height="30" alt="Validé">
-
-        
-        @else
-        
-           @endif
 
       </div>
     </div>

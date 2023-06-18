@@ -156,7 +156,7 @@
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">Liste de mes projets</h6>
                             <div class="table-responsive">
-                                <table class="table " style="color:#ffe8e8">
+                                <table class="table table-lg " style="color:#ffe8e8" >
                                     @if (count($projets)==0)
                                     <div class="alert alert-danger text-center text-white" style="    background-color: #bb1c1c;
                                     " >Vous n'avez enregistré aucun projet</div>
@@ -185,11 +185,24 @@
                                             <td>{{$projet->date_fin}}</td>
                                             <td>
                                                 
-                                                <a  type="button" id="detail" class="btn btn-sm btn-primary"  onclick="loadProjectDetail({{$projet->id}})" href="{{route('projets.edit',['projet'=>$projet])}}">Détail</a>
+                                                <a  type="button" id="detail" class="btn btn-sm btn-primary"  onclick="loadProjectDetail({{$projet->id}})" href="{{route('projets.edit',['projet'=>$projet])}}"><img src="{{asset('build/imgs/eye.png')}}" height="25"  alt=""> </a>
                                         <form method="POST" action="{{route('projets.destroy',['projet'=>$projet])}}" accept-charset="UTF-8" style="display:inline">
                                             {{ method_field('DELETE') }}
                                             {{ csrf_field() }}
                                             <button  class="btn btn-sm btn-primary"    ><img src="{{asset('build/imgs/remove.png')}}" height="20"  alt=""> </button>
+
+                          
+                                          </form>
+
+                                          <form method="GET" action="{{route('status.update',['id'=>$projet->id])}}" accept-charset="UTF-8" style="display:inline">
+                                            @if($projet->statut==0)
+                                            <button  class="btn btn-sm btn-success"    ><img src="{{asset('build/imgs/play.png')}}" height="20"  alt=""> </button>
+                                            @elseif ($projet->statut==1)
+                                            <button  class="btn btn-sm btn-primary"    ><img src="{{asset('build/imgs/stop.png')}}" height="20"  alt=""> </button>
+                                            @else
+                                            <button  class="btn btn-sm btn-primary"    ><img src="{{asset('build/imgs/succes.png')}}" height="20"  alt=""> </button>
+
+                                            @endif
 
                           
                                           </form>
@@ -299,4 +312,24 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+
+    <script>
+        window.addEventListener('load', function() {
+    @if (Session::has('tostr'))
+                  toastr.error('{{ Session::get('tostr') }}');
+            @endif
+
+
+            @if (Session::has('tostrSucess'))
+                  toastr.info('{{ Session::get('tostrSucess') }}');
+            @endif
+        })
+
+        
+
+
+        
+    
+    
+    </script>
 @endsection

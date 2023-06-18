@@ -209,8 +209,9 @@
                                 <select  required  onchange="coutDisplay()"  class="form-select " id="projet_id"  name="projet_id" aria-label="Default select example">
                                     <option  selected value="">Il s'agit de quel projet ?</option>
                                     @foreach ($projets as $projet )
+                                    @if($projet->annonce==null)
                                     <option @if ( old('projet_id')==$projet->id ) {{"selected"}}    @endif value="{{$projet->id}}"> {{$projet->libelle}}</option>
-
+@endif
      
                                     @endforeach
                                                                      </select>

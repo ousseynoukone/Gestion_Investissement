@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Annonce;
+use App\Models\Investissement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InvestisseursController extends Controller
 {
@@ -10,8 +12,9 @@ class InvestisseursController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    { 
-        return (view('pages.investisseurs.home'));
+    {  
+         $investissements = Investissement::where('investisseur_id',Auth::user()->id)->get();
+        return (view('pages.investisseurs.home',compact('investissements')));
     }
 
     /**
@@ -19,7 +22,7 @@ class InvestisseursController extends Controller
      */
     public function create()
     {
-        //
+   
     }
 
     /**
@@ -35,7 +38,9 @@ class InvestisseursController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $annonce = Annonce::with('projet')->with('user')->find($id);
+        return (view('pages.investisseurs.detailFolder.annonce-detail',compact('annonce')));
+    
     }
 
     /**

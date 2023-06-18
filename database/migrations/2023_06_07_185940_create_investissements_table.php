@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('investissements', function (Blueprint $table) {
             $table->id();
-            $table->float('montant');
+            $table->double('montant');
             $table->integer('investisseur_id')->unsigned();
-            $table->integer('entrepreneur_id')->unsigned();
-            $table->date('date_investissement');
+            $table->integer('entrepreneur_id')->unsigned()->nullable();
+            $table->dateTime('date_investissement');
             $table->string('conditions');
             $table->float('partDeParticipation');
             $table->timestamps(); 

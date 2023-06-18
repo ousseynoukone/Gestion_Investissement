@@ -21,7 +21,7 @@ class AnnonceController extends Controller
             $annonces = Annonce::where('user_id',Auth::user()->id)->paginate(5);
             $projets = Projet::where('user_id',Auth::user()->id)->get() ;
                         return view("pages.entrepreneurs.annonce",compact('annonces','projets'));
-        }else{
+        }else if(Auth::user()->role=="investisseur"){
             $annonces = Annonce::paginate(5);
             return view('pages.investisseurs.annonce',compact('annonces'));
         }
@@ -43,7 +43,7 @@ class AnnonceController extends Controller
 
         //controle de saisie doit etre fait ! 
         $validatedData = $request->validate([
-            'libelle' => 'required |max:200' ,
+            'libelle' => 'required |max:400' ,
             'projet_id' => 'required | numeric' ,
 
             'cout' => 'required | numeric' 
@@ -94,7 +94,37 @@ class AnnonceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+                //controle de saisie doit etre fait ! 
+                $validatedData = $request->validate([
+                    'libelle' => 'required |max:400' ,
+                    'projet_id' => 'required | numeric' ,
+        
+                    'cout' => 'required | numeric' 
+                ]
+                );
+
+                $annonce = Annonce::find($id);
+                $projet = Projet::find($request->get('projet_id'));
+                // if ($projet->annonce && $projet->annonce->id!=$annonce->id ) {
+                //     return back()->with('erreur', 'Ce projet a déja une annonce dédiée');
+                // }
+                //On doit enlever l'id de l'annonce dont on retire l'annonce
+                $projetB = Projet::find($annonce->projet->id);
+                if($projetB)
+                {
+                    $projetB->annonce_id=0;
+                    $projetB->update();
+                }
+
+           
+
+        
+        
+                $annonce->update(  $validatedData);
+        
+                $projet->annonce_id = $annonce->id  ;
+                $projet->update();
+        return(redirect()->route('annonces.index'));
     }
 
     /**

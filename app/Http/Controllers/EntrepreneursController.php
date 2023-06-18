@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Investissement;
 use App\Models\Projet;
+use App\Models\Annonce;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 class EntrepreneursController extends Controller
@@ -40,7 +41,7 @@ $investissements = Investissement::where('entrepreneur_id', Auth::user()->id)->p
      */
     public function show(string $id)
     {
-        //
+ 
     }
 
     /**

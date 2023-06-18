@@ -214,7 +214,7 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-secondary text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Les investissements reçus</h6>
+                        <h6 class="mb-0">Les investissements effectués</h6>
                     </div>
                     <div class="table-responsive">
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
@@ -223,28 +223,40 @@
                                     <th scope="col">Montant</th>
                                     <th scope="col">Investisseur</th>
                                     <th scope="col">Entrepreneur</th>
-                                    <th scope="col">Libelle du projet</th>
+                                    <th scope="col">Projet</th>
                                     <th scope="col">Date</th>
+                                    <th scope="col">Validation</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>01 Jan 2045</td>
-                                    <td>INV-0123</td>
-                                    <td>Jhon Doe</td>
-                                    <td>$123</td>
-                                    <td>Paid</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                                </tr>
-                 
-                  
-                            
+                                @forelse ($investissements as $investissement)
+                                    <tr>
+                                        <td>{{ $investissement->montant }}</td>
+                                        <td>{{ strlen($investissement->investisseur->name) > 10 ? substr($investissement->investisseur->name, 0, 10) . '...' : $investissement->investisseur->name }}</td>
+                                        <td>{{ $investissement->entrepreneur ? $investissement->entrepreneur->name : "Non validé" }}</td>
+                                        <td>{{ strlen($investissement->projet->libelle) > 15 ? substr($investissement->projet->libelle, 0, 15) . '...' : $investissement->projet->libelle }}</td>
+                                        <td>{{ $investissement->date_investissement }}</td>
+                                        <td>
+                                            @if($investissement->valide)
+                                              Validé  <img src="{{ asset('build/imgs/succes.png') }}" height="30" alt="Validé">
+                                            @else
+                                              Non Validé  <img src="{{ asset('build/imgs/remove.png') }}" height="30" alt="Non validé">
+                                            @endif
+                                        </td>
+                                                                                <td><a class="btn btn-sm btn-primary" href="#">Détail</a></td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="text-center">Aucun investissement effectué</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+            
             <!-- Recent Sales End -->
 
 

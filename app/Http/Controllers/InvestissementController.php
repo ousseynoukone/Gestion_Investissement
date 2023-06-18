@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\investissement;
+use DateTime;
+use Illuminate\Auth\Events\Validated;
+use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class InvestissementController extends Controller
 {
@@ -12,15 +17,16 @@ class InvestissementController extends Controller
      */
     public function index()
     {
-        //
+
+        
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
+    public function create(Request $request )
+    { 
+        
     }
 
     /**
@@ -28,7 +34,24 @@ class InvestissementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $currentDate = new DateTime();
+
+        $validatedData = $request->validate([
+            'montant' => 'required|numeric',
+            'projet_id' => 'required|exists:projets,id',
+            'conditions' => 'required|string|max:200',
+            'partDeParticipation' => 'required|string',
+               
+        ]);
+
+        $validatedData['date_investissement'] = $currentDate;
+        $validatedData['investisseur_id'] = Auth::user()->id;
+
+        $investissement = investissement::create($validatedData); 
+
+        return(redirect()->route('investisseurs.index'));
+
     }
 
     /**

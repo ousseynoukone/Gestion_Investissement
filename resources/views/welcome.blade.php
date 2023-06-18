@@ -10,6 +10,7 @@
 <div class="container">
 	<div class="screen">
 		<div class="screen__content">
+            @if(Auth::user()==null)
             
 			<form method="POST" action="{{ route('login') }}" class="login">
             @csrf
@@ -45,6 +46,11 @@
 				     </button>
             	
 			</form>
+            @else
+            <a href="{{ Auth::user()->role=="entrepreneur" ? route('entrepreneurs.index') : route('investisseurs.index')  }}" style="text-decoration: none !important;color:aliceblue ; " >Accueil</a>
+
+
+            @endif
            
 			<div class="social-login">
 				<h4>Compte Inexistant ?</h4>

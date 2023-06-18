@@ -38,8 +38,8 @@ class ProjetController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'libelle' => 'required|regex:/^(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s\S\p{P}:,\')("&\-_;]{1,50}(?![\p{P}\s])$/u',
-            'description' => 'required|regex:/^(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s\S\p{P}:,\')("&\-_;]{1,200}(?![\p{P}\s])$/u',
+            'libelle' => 'required|regex:/^(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s\S\p{P}:,\')("&\-_;]{1,100}(?![\p{P}\s])$/u',
+            'description' => 'required|regex:/^(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s\S\p{P}:,\')("&\-_;]{1,400}(?![\p{P}\s])$/u',
             'cout' => 'required|numeric|min:1000',
             'date_debut' => 'required|date',
             'date_fin' => [
@@ -87,8 +87,8 @@ class ProjetController extends Controller
     public function update(Request $request, Projet $projet)
     { 
         $validatedData = $request->validate([
-            'libelle' => 'required|regex:/^(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s\S\p{P}:,\')("&\-_;]{1,50}(?![\p{P}\s])$/u',
-            'description' => 'required|regex:/^(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s\S\p{P}:,\')("&\-_;]{1,200}(?![\p{P}\s])$/u',
+            'libelle' => 'required|regex:/^(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s\S\p{P}:,\')("&\-_;]{1,100}(?![\p{P}\s])$/u',
+            'description' => 'required|regex:/^(?=.*[a-zA-Z0-9])[a-zA-Z0-9\s\S\p{P}:,\')("&\-_;]{1,400}(?![\p{P}\s])$/u',
             'cout' => 'required|numeric|min:1000',
             'date_debut' => 'required|date',
             'date_fin' => [

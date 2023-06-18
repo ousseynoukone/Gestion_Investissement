@@ -29,7 +29,7 @@
                                 <select  required  onchange="coutDisplayEdit()"  class="form-select " id="projet_id"  name="projet_id" aria-label="Default select example">
                                     <option  selected value="{{($annonce->projet != null) ? $annonce->projet->id  : "" }}">{{$annonce->projet!=null ? $annonce->projet->libelle  :"Cette annonce n'as pas de projet" }}</option>
                                     @foreach ($projets as $projet )
-                                    @if($projet->id != $annonce->projet->id  )
+                                    @if($projet->id != $annonce->projet->id && $projet->annonce==null )
                                     <option @if ( old('projet_id')==$projet->id ) {{"selected"}}    @endif value="{{$projet->id}}"> {{$projet->libelle}}</option>
                                     @endif
                                     @endforeach
@@ -48,6 +48,13 @@
                                     @enderror
                            
                                 </div>
+
+                               
+
+
+                               <div class="alert badge-danger" style="color: crimson">  {{ session('erreur') }}</div>
+
+
 
 
 

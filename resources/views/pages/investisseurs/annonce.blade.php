@@ -1,5 +1,6 @@
 @extends('layout')
 @section('content')
+
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -23,12 +24,12 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">{{ Auth::user()->name }}</h6>
-                        <span>Entrepreneur</span>
+                        <span>Investisseur</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="{{route('investisseurs.index')}}" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Investissement</a>
-                    <a href="{{route('annonces.index')}}" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Mes annonces</a>
+                    <a href="{{route('annonces.index')}}" class="nav-item nav-link active"><i class="fa fa-table me-2"></i> Les annonces</a>
     
                 </div>
             </nav>
@@ -137,9 +138,46 @@
                 </div>
             </nav>
             <!-- Navbar End -->
+            <div class="container-fluid pt-4 px-4">
+            
+                <div class="col-12">
+                    <div class="card bg-secondary rounded h-100 p-4">
+                        <h6 class="mb-4">Les annonces</h6>
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 ">
+                            @if (count($annonces) == 0)
+                                <div class="alert alert-danger text-center text-white"
+                                    style="background-color: #bb1c1c;">Aucune annonce publiée</div>
+                            @else
+                                @foreach ($annonces as $annonce)
+                                    <div class="col text-white ">
+                                        <div class="card" style="background-color:rgba(14, 14, 14, 0.801)">
+                                            <div class="card-header h5">
+                                              Annonce
+                                            </div>
+                                            <div class="card-body" >
+                                              <h6 class="card-title">Publié par <span class="text-primary"> {{$annonce->user->name}}</span></h6>
+                                              <p class="card-text">Titre : {{$annonce->libelle}}</p>
+                                              <p class="card-text">Projet : {{$annonce->projet? $annonce->projet->libelle : "Pas de projet"}}</p>
+                                              <p class="card-text">Cout : {{$annonce->cout}}</p>
+                                              <p class="card-text offset-2">{{$annonce->date_pub}}</p>
 
-
-
+                            
+                                              <a href="{{route('investisseurs.show',['investisseur'=>$annonce->id])}}" class="btn btn-primary">En savoir plus</a>
+                                            </div>
+                                          </div>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                        @if (count($annonces) > 0)
+                            <div class="d-flex justify-content-end">
+                                {{ $annonces->links("pagination::bootstrap-5") }}
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            
 
 
                     <!-- Footer Start -->

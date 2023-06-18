@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('projet_id')->constrained();
 
             $table->dateTime('date_pub');
-            $table->float('cout')->nullable();
+            $table->double('cout')->nullable();
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });

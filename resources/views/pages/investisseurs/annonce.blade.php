@@ -149,6 +149,8 @@
                                     style="background-color: #bb1c1c;">Aucune annonce publiée</div>
                             @else
                                 @foreach ($annonces as $annonce)
+                                
+                                @if(($annonce->projet->investissement!=null && $annonce->projet->investissement->etat==false) || ($annonce->projet->investissement==null )   )
                                     <div class="col text-white ">
                                         <div class="card" style="background-color:rgba(14, 14, 14, 0.801)">
                                             <div class="card-header h5">
@@ -166,6 +168,7 @@
                                             </div>
                                           </div>
                                     </div>
+                                    @endif
                                 @endforeach
                             @endif
                         </div>

@@ -244,8 +244,7 @@
                                               Non Validé  <img src="{{ asset('build/imgs/remove.png') }}" height="30" alt="Non validé">
                                             @endif
                                         </td>
-                                                                                <td><a class="btn btn-sm btn-primary" href="#">Détail</a></td>
-                                    </tr>
+                                        <td><a class="btn btn-sm btn-primary" href="{{ route('investissements.show', ['investissement' => $investissement]) }}">Detail</a></td>                                    </tr>
                                 @empty
                                     <tr>
                                         <td colspan="7" class="text-center">Aucun investissement effectué</td>
@@ -401,4 +400,13 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+    <script>
+        window.addEventListener('load', function() {
+    @if (Session::has('tostr'))
+                  toastr.info('{{ Session::get('tostr') }}');
+            @endif
+        })
+    
+    
+    </script>
 @endsection

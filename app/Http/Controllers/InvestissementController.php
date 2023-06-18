@@ -34,7 +34,8 @@ class InvestissementController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   
+
         
         $currentDate = new DateTime();
 
@@ -56,7 +57,7 @@ class InvestissementController extends Controller
         $projet->investissement_id = $investissement->id;
         $projet->update();
 
-        return(redirect()->route('investisseurs.index'));
+        return(redirect()->route('investisseurs.index')->with('tostr',"Proposition d'investissement envoyé ! "));
 
     }
 
@@ -64,8 +65,14 @@ class InvestissementController extends Controller
      * Display the specified resource.
      */
     public function show(investissement $investissement)
-    {
-        return (view('pages.entrepreneurs.investissement.investissement_detail',compact('investissement')));
+    {    if(Auth::user()->role=="entrepreneur")
+        {
+            return (view('pages.entrepreneurs.investissement.investissement_detail',compact('investissement')));
+
+        }else{
+            return (view('pages.investisseurs.investissement.investissement_detail',compact('investissement')));
+
+        }
     }
 
     /**

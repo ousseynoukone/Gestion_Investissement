@@ -55,22 +55,19 @@
     
   <div class="card col-md-12 mt-3 ">
     <div class=" rounded d-inline-block mb-2" style="width: 15rem;background-color:#DC143C;">
-      <a href="{{ route('entrepreneurs.index') }}" class="text-white mb-2">
-        <img src="{{ asset('build/imgs/arrow-left-solid.svg') }}" height="35"> Liste des investissements 
+      <a href="{{ route('investisseurs.index') }}" class="text-white mb-2">
+        <img src="{{ asset('build/imgs/arrow-left-solid.svg') }}" height="45"> Liste des investissements 
         </a>
     </div>
     
-    <form method="post" id=""   action="{{route('investissements.update',['investissement'=>$investissement])}}">
-
-      @csrf
-      {{ method_field('PUT') }}    <div class="card-header text-center">
+    <div class="card-header text-center">
       
 
          Investissement
       
     </div>
     <div class="card-body">
-      <h5 class="card-title">Investisseur : <span style="color:#DC143C">{{$investissement->investisseur->name}}</span> </h5>
+      <h5 class="card-title">Entrepreneur : <span style="color:#DC143C">{{$investissement->entrepreneur->name}}</span> </h5>
    
       <div class="row" >
 
@@ -112,7 +109,7 @@
       <div class="row">
       <div class="col-md-5">   
 
-           <a class="btn btn-primary  custom-button">Contacter {{$investissement->investisseur->name}}</a>
+           <a class="btn btn-primary  custom-button">Contacter {{$investissement->entrepreneur->name}}</a>
 
             @if($investissement->etat==true)
         
@@ -121,7 +118,6 @@
         
         @else
         
-        <button type="submit" data-bs-toggle="modal" data-bs-target="#investirModal" class="btn btn-primary  custom-button" >Approuver</button>
            @endif
 
       </div>
@@ -134,7 +130,6 @@
         </div>
 
 </div>
-</form>
   </div>
   
 <script>

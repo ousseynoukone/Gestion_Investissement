@@ -29,7 +29,7 @@
                                 <select  required  onchange="coutDisplayEdit()"  class="form-select " id="projet_id"  name="projet_id" aria-label="Default select example">
                                     <option  selected value="{{($annonce->projet != null) ? $annonce->projet->id  : "" }}">{{$annonce->projet!=null ? $annonce->projet->libelle  :"Cette annonce n'as pas de projet" }}</option>
                                     @foreach ($projets as $projet )
-                                    @if($projet->id != $annonce->projet->id && $projet->annonce==null )
+                                    @if($projet->id != $annonce->projet->id && $projet->annonce==null)
                                     <option @if ( old('projet_id')==$projet->id ) {{"selected"}}    @endif value="{{$projet->id}}"> {{$projet->libelle}}</option>
                                     @endif
                                     @endforeach
@@ -57,9 +57,13 @@
 
 
 
-
+                               @if($annonce->projet->investissement)
+                               <div class="badge alert-primary h4">Impossible de modifier ou de supprimé une annonce qui as déja un investisseur</div>
+              
+                               @else
  
                                 <div class="mt-3 offset-5">
+                               
                                     <button  class="btn btn-dark" >Mettre à jour </button>
                                 </form>
 
@@ -68,7 +72,9 @@
                                         {{ csrf_field() }}
                                         <button  class="btn btn-primary"    >Supprimer <img src="{{asset('build/imgs/remove.png')}}" height="20"  alt=""> </button>
                                       
-                                      </form>                      
+                                      </form>  
+                                      @endif
+                     
                                 </div>
                         </div>
                 </div>

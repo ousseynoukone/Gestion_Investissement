@@ -238,7 +238,7 @@
                                         <td>{{ strlen($investissement->projet->libelle) > 15 ? substr($investissement->projet->libelle, 0, 15) . '...' : $investissement->projet->libelle }}</td>
                                         <td>{{ $investissement->date_investissement }}</td>
                                         <td>
-                                            @if($investissement->valide)
+                                            @if($investissement->etat != false)
                                               Validé  <img src="{{ asset('build/imgs/succes.png') }}" height="30" alt="Validé">
                                             @else
                                               Non Validé  <img src="{{ asset('build/imgs/remove.png') }}" height="30" alt="Non validé">

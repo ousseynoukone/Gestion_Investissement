@@ -64,13 +64,14 @@
                 @csrf
                 <div class="form-group mt-1">
                     <label for="montant">Montant</label>
-                    <input type="number" class="form-control ajoutModalErrorShow @error('montant') is-invalid @enderror" id="montant" name="montant" value="{{ old('montant') }}">
+                    <input type="number" class="form-control ajoutInvesModalShow @error('montant') is-invalid @enderror" id="montant" name="montant" value="{{ old('montant') }}">
                     @error('montant')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <input type="number" hidden class="form-control"  id="montant" name="projet_id" value="{{$annonce->projet ? $annonce->projet->id : "" }}">
+                <input type="number" hidden class="form-control ajoutInvesModalShow"   name="projet_id" value="{{$annonce->projet ? $annonce->projet->id : "" }}">
+                <input type="number" hidden class="form-control ajoutInvesModalShow"   name="entrepreneur_id" value="{{$annonce->user ? $annonce->user->id : "" }}">
 
     
 
@@ -81,7 +82,7 @@
     
                 <div class="form-group mt-1">
                     <label for="partDeParticipation">Part de participation</label>
-                    <input type="number" class="form-control ajoutModalErrorShow @error('partDeParticipation') is-invalid @enderror" id="partDeParticipation" name="partDeParticipation" value="{{ old('partDeParticipation') }}">
+                    <input type="number" class="form-control ajoutInvesModalShow @error('partDeParticipation') is-invalid @enderror" id="partDeParticipation" name="partDeParticipation" value="{{ old('partDeParticipation') }}">
     
                     @error('partDeParticipation')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -90,7 +91,7 @@
 
                 <div class="form-group mt-1">
                   <label for="conditions">Conditions</label>
-                  <textarea rows="4" cols="50" maxlength="200" class="form-control ajoutModalErrorShow @error('conditions') is-invalid @enderror" id="conditions" name="conditions">{{ old('conditions') }}</textarea>
+                  <textarea rows="4" cols="50" maxlength="200" class="form-control ajoutInvesModalShow @error('conditions') is-invalid @enderror" id="conditions" name="conditions">{{ old('conditions') }}</textarea>
   
                   @error('conditions')
                   <div class="invalid-feedback">{{ $message }}</div>
@@ -145,16 +146,15 @@
  
     </div>
 
-    <div class="card mt-4">
+    <div class="card mt-2">
       <div class="row">
       <div class="col-md-5">   
         
            <a class="btn btn-primary mb-2 custom-button">Contacter {{$annonce->user->name}}</a>
 
-      </div>
-      <div class="col-md-4"> 
+    
         
-        <a type="button" data-bs-toggle="modal" data-bs-target="#investirModal" class="btn btn-primary mb-2 custom-button" href="#add"  id="addButton">Proposer un investissement</a>
+        <a type="button" data-bs-toggle="modal" data-bs-target="#investirModal" class="btn btn-primary mb-2 custom-button" href="#add"  id="addInvesButton">Proposer un investissement</a>
 
       </div>
       </div>
@@ -166,5 +166,16 @@
         </div>
 
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var hasInvalidField = document.querySelector('.ajoutInvesModalShow').classList.contains('is-invalid');
 
+
+    if (hasInvalidField) {
+        var investirModal = document.getElementById('investirModal');
+       document.getElementById('addInvesButton').click()
+    }
+});
+
+</script>
 @endsection

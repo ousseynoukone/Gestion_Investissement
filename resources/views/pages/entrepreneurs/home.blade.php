@@ -230,8 +230,9 @@
                                     <th scope="col">Montant</th>
                                     <th scope="col">Investisseur</th>
                                     <th scope="col">Entrepreneur</th>
-                                    <th scope="col">Libelle du projet</th>
-                                    <th scope="col">Date</th>
+                                    <th scope="col">Projet</th>
+                                    <th scope="col">Date d'investissement</th>
+                                    <th scope="col">Validation</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -240,11 +241,18 @@
                                 @foreach($investissements as $investissement)
                                 <tr>
                                     <td>{{ $investissement->montant }}</td>
-                                    <td>{{ $investissement->investisseur->name }}</td>
-                                    <td>{{ $investissement->entrepreneur->name }}</td>
+                                    <td>{{ strlen($investissement->investisseur->name) > 10 ? substr($investissement->investisseur->name, 0, 10) . '...' : $investissement->investisseur->name }}</td>
+                                    <td>{{ strlen($investissement->entrepreneur->name) > 10 ? substr($investissement->entrepreneur->name, 0, 10) . '...' : $investissement->entrepreneur->name }}</td>
+
                                     <td>{{ $investissement->projet->libelle}}</td>
                                     <td>{{ $investissement->date_investissement }}</td>
-                                    <td><a class="btn btn-sm btn-primary" href="{{ route('investissement.show', ['investissement' => $investissement]) }}">Detail</a></td>
+                                    <td>
+                                        @if($investissement->etat != false)
+                                          Validé  <img src="{{ asset('build/imgs/succes.png') }}" height="30" alt="Validé">
+                                        @else
+                                          Non Validé  <img src="{{ asset('build/imgs/remove.png') }}" height="30" alt="Non validé">
+                                        @endif
+                                    </td>                                    <td><a class="btn btn-sm btn-primary" href="{{ route('investissements.show', ['investissement' => $investissement]) }}">Detail</a></td>
                                 </tr>
                             
                             </tbody>  
@@ -401,4 +409,13 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+    <script>
+    window.addEventListener('load', function() {
+@if (Session::has('tostr'))
+              toastr.info('{{ Session::get('tostr') }}');
+        @endif
+    })
+
+
+</script>
 @endsection

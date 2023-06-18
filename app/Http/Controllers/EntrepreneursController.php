@@ -16,7 +16,6 @@ class EntrepreneursController extends Controller
     {    
         
 $investissements = Investissement::where('entrepreneur_id', Auth::user()->id)->paginate(5);
-
         return (view('pages.entrepreneurs.home',compact('investissements')));
     }
 

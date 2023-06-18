@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\investissement;
+use App\Models\Projet;
 use DateTime;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Contracts\Support\ValidatedData;
@@ -18,7 +19,7 @@ class InvestissementController extends Controller
     public function index()
     {
 
-        
+
     }
 
     /**
@@ -47,8 +48,13 @@ class InvestissementController extends Controller
 
         $validatedData['date_investissement'] = $currentDate;
         $validatedData['investisseur_id'] = Auth::user()->id;
+        $validatedData['entrepreneur_id'] = $request->input('entrepreneur_id');
+        $validatedData['etat'] = false;
 
         $investissement = investissement::create($validatedData); 
+        $projet =Projet::find($request->input('projet_id'));
+        $projet->investissement_id = $investissement->id;
+        $projet->update();
 
         return(redirect()->route('investisseurs.index'));
 
@@ -59,7 +65,7 @@ class InvestissementController extends Controller
      */
     public function show(investissement $investissement)
     {
-        //
+        return (view('pages.entrepreneurs.investissement.investissement_detail',compact('investissement')));
     }
 
     /**
@@ -75,7 +81,9 @@ class InvestissementController extends Controller
      */
     public function update(Request $request, investissement $investissement)
     {
-        //
+        $investissement->etat = true;
+        $investissement->update();
+        return(redirect()->route('entrepreneurs.index')->with('tostr',"Investissement approuvé ! "));
     }
 
     /**

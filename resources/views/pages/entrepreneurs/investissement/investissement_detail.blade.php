@@ -112,7 +112,7 @@
       <div class="row">
       <div class="col-md-5">   
 
-           <a class="btn btn-primary  custom-button">Contacter {{$investissement->investisseur->name}}</a>
+           <a href="/chatify/{{$investissement->investisseur->id}}" class="btn btn-primary  custom-button">Contacter {{$investissement->investisseur->name}}</a>
 
             @if($investissement->etat==true)
         

@@ -11,7 +11,7 @@ class Investissement extends Model
     use HasFactory;
     protected $table = 'investissements';
 
-    protected $fillable = ['montant', 'investisseur_id', 'entrepreneur_id', 'projet_id', 'date_investissement', 'conditions', 'partDeParticipation'];
+    protected $fillable = ['montant', 'investisseur_id','etat', 'entrepreneur_id', 'projet_id', 'date_investissement', 'conditions', 'partDeParticipation'];
 
     public function projet (){
         return $this->belongsTo(Projet::class);

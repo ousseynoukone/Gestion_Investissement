@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Investissement;
 use App\Models\Projet;
-use App\Models\Annonce;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-class EntrepreneursController extends Controller
+
+
+class ProjetStatusController extends Controller
 {
     /**
-     * Display a listing of the resouerce.
+     * Display a listing of the resource.
      */
     public function index()
-    {    
-        
-$investissements = Investissement::where('entrepreneur_id', Auth::user()->id)->paginate(5);
-        return (view('pages.entrepreneurs.home',compact('investissements')));
+    {
+        //
     }
 
     /**
@@ -40,7 +37,7 @@ $investissements = Investissement::where('entrepreneur_id', Auth::user()->id)->p
      */
     public function show(string $id)
     {
- 
+        //
     }
 
     /**
@@ -56,7 +53,26 @@ $investissements = Investissement::where('entrepreneur_id', Auth::user()->id)->p
      */
     public function update(Request $request, string $id)
     {
-        //
+        $projet = Projet::find($id);
+
+        if( $projet->Investissement!=null)  { 
+            if($projet->statut==0)
+            {
+                $projet->statut=1;
+                $projet->update();
+                return (redirect()->route('projets.index')->with('tostrSucess',"Projet demarré avec sucess ! "));
+    
+            }else{
+                $projet->statut=2;
+                $projet->update();
+                return (redirect()->route('projets.index')->with('tostrSucess',"Projet achevé avec sucess ! "));
+    
+    
+            }
+        }else{
+            return (redirect()->route('projets.index')->with('tostr',"Impossible de démarer un projet qui n'as pas recu d'investissement"));
+        }
+    
     }
 
     /**

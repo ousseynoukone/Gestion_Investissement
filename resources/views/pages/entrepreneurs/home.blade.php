@@ -218,8 +218,8 @@
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Les investissements reçus</h6>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0" style="color:#ffe8e8">
+                    <div class="table-responsive" id="investissementContainer">
+                        <table class="table  table-lg text-start align-middle table-bordered table-hover mb-0" style="color:#ffe8e8">
                             @if (count($investissements)==0)
                             <div class="alert alert-danger text-center text-white" style="   background-color: #bb1c1c;
                             " >Vous n'avez reçu aucun investissement</div>
@@ -230,8 +230,9 @@
                                     <th scope="col">Montant</th>
                                     <th scope="col">Investisseur</th>
                                     <th scope="col">Entrepreneur</th>
-                                    <th scope="col">Libelle du projet</th>
-                                    <th scope="col">Date</th>
+                                    <th scope="col">Projet</th>
+                                    <th scope="col">Date d'investissement</th>
+                                    <th scope="col">Validation</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -240,11 +241,19 @@
                                 @foreach($investissements as $investissement)
                                 <tr>
                                     <td>{{ $investissement->montant }}</td>
-                                    <td>{{ $investissement->investisseur->name }}</td>
-                                    <td>{{ $investissement->entrepreneur->name }}</td>
-                                    <td>{{ $investissement->projet->libelle}}</td>
+                                    <td>{{ strlen($investissement->investisseur->name) > 10 ? substr($investissement->investisseur->name, 0, 10) . '..' : $investissement->investisseur->name }}</td>
+                                    <td>{{ strlen($investissement->entrepreneur->name) > 10 ? substr($investissement->entrepreneur->name, 0, 10) . '..' : $investissement->entrepreneur->name }}</td>
+
+                                    <td>{{ strlen($investissement->projet->libelle) > 7 ? substr($investissement->projet->libelle, 0, 7) . '...' : $investissement->projet->libelle }}</td>
+
                                     <td>{{ $investissement->date_investissement }}</td>
-                                    <td><a class="btn btn-sm btn-primary" href="{{ route('investissement.show', ['investissement' => $investissement]) }}">Detail</a></td>
+                                    <td>
+                                        @if($investissement->etat != false)
+                                           Oui <img src="{{ asset('build/imgs/succes.png') }}" height="30" alt="Validé">
+                                        @else
+                                          Non <img src="{{ asset('build/imgs/remove.png') }}" height="30" alt="Non validé">
+                                        @endif
+                                    </td>                                    <td><a class="btn btn-sm btn-primary" href="{{ route('investissements.show', ['investissement' => $investissement]) }}">Detail</a></td>
                                 </tr>
                             
                             </tbody>  
@@ -257,130 +266,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Recent Sales End -->
-
-
-            <!-- Widgets Start
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-md-6 col-xl-4">
-                        <div class="h-100 bg-secondary rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <h6 class="mb-0">Messages</h6>
-                                <a href="">Show All</a>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-3">
-                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Jhon Doe</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                    <span>Short message goes here...</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-3">
-                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Jhon Doe</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                    <span>Short message goes here...</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-3">
-                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Jhon Doe</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                    <span>Short message goes here...</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center pt-3">
-                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Jhon Doe</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                    <span>Short message goes here...</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-xl-4">
-                        <div class="h-100 bg-secondary rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Calender</h6>
-                                <a href="">Show All</a>
-                            </div>
-                            <div id="calender"></div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-xl-4">
-                        <div class="h-100 bg-secondary rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">To Do List</h6>
-                                <a href="">Show All</a>
-                            </div>
-                            <div class="d-flex mb-2">
-                                <input class="form-control bg-dark border-0" type="text" placeholder="Enter task">
-                                <button type="button" class="btn btn-primary ms-2">Add</button>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox" checked>
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <span><del>Short task goes here...</del></span>
-                                        <button class="btn btn-sm text-primary"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center pt-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        Widgets End -->
-
+            
 
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
@@ -401,4 +287,39 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+    <script>
+    window.addEventListener('load', function() {
+@if (Session::has('tostr'))
+              toastr.info('{{ Session::get('tostr') }}');
+        @endif
+    })
+
+
+                var refreshInterval = 10000; // 10 seconds
+                var isHovered = false; // Flag to track if button is hovered
+            
+                // Refreshes the page content by making an AJAX request
+                function refreshPage() {
+                    if (!isHovered) { // Check if button is not hovered
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('GET', window.location.href, true);
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                                // Extract the annonces HTML from the response
+                                var parser = new DOMParser();
+                                var responseDoc = parser.parseFromString(xhr.responseText, 'text/html');
+                                var annoncesHtml = responseDoc.getElementById('investissementContainer').innerHTML;
+                                // Replace the existing annonces HTML with the updated content
+                                document.getElementById('investissementContainer').innerHTML = annoncesHtml;
+                            }
+                        };
+                        xhr.send();
+                    }
+                }
+            
+ 
+            
+                // Set up the interval to refresh the page content
+                setInterval(refreshPage, refreshInterval);
+</script>
 @endsection

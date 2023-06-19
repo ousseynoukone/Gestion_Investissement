@@ -10,6 +10,7 @@
 <div class="container">
 	<div class="screen">
 		<div class="screen__content">
+            @if(Auth::user()==null)
             
 			<form method="POST" action="{{ route('login') }}" class="login">
             @csrf
@@ -17,7 +18,7 @@
                     <!-- Email Address -->
                     <div class="login__field">
                     <i class="login__icon fas fa-envelope"></i>
-					<input  for="email" type="text" class="login__input" placeholder="User name / Email" id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" >
+					<input  for="email" type="text" class="login__input" placeholder="Email" id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" >
                         <!-- <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" /> -->
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
@@ -25,7 +26,7 @@
                     <!-- Password -->
                     <div  class="login__field">
                     <i class="login__icon fas fa-lock"></i>
-					<input type="password" class="login__input" placeholder="Password" for="password" :value="__('Password')" id="password" class="block mt-1 w-full"
+					<input type="password" class="login__input" placeholder="Mots de passe" for="password" :value="__('Password')" id="password" class="block mt-1 w-full"
                                         type="password"
                                         name="password"
                                         required autocomplete="current-password">
@@ -39,13 +40,17 @@
                     <button class="button login__submit" class="flex items-center justify-end mt-4">
                         <span class="button__text">Connexion</span>
                         <i class="button__icon fas fa-chevron-right"></i>
-                       
                         <x-primary-button class="ml-3">
                                 {{ __('') }}
                             </x-primary-button>
 				     </button>
             	
 			</form>
+            @else
+            <a href="{{ Auth::user()->role=="entrepreneur" ? route('entrepreneurs.index') : route('investisseurs.index')  }}" style="text-decoration: none !important;color:aliceblue ; " >Accueil</a>
+
+
+            @endif
            
 			<div class="social-login">
 				<h4>Compte Inexistant ?</h4>
@@ -53,7 +58,7 @@
                     @if (Route::has('login'))
                             <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                                 @auth
-                                    <a href="{{ Auth::user()->role=="entrepreneur" ? route('entrepreneurs.index') : route('investisseurs.index')  }}" style="text-decoration: none !important;" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Accueil</a>
+                                    <a href="{{ Auth::user()->role=="entrepreneur" ? route('entrepreneurs.index') : route('investisseurs.index')  }}" style="text-decoration: none !important;color:aliceblue ; " >Accueil</a>
                                 @else
                                    
 
@@ -70,7 +75,6 @@
 					<a href="#" class="social-login__icon fab fa-twitter"></a>
 				</div>
 			</div>
-           
 		</div>
 		<div class="screen__background">
 			<span class="screen__background__shape screen__background__shape4"></span>

@@ -143,12 +143,14 @@
                 <div class="col-12">
                     <div class="card bg-secondary rounded h-100 p-4">
                         <h6 class="mb-4">Les annonces</h6>
-                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 ">
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 " id="annoncesContainer">
                             @if (count($annonces) == 0)
                                 <div class="alert alert-danger text-center text-white"
                                     style="background-color: #bb1c1c;">Aucune annonce publiée</div>
                             @else
                                 @foreach ($annonces as $annonce)
+                                
+                                @if(($annonce->projet->investissement!=null && $annonce->projet->investissement->etat==false) || ($annonce->projet->investissement==null )   )
                                     <div class="col text-white ">
                                         <div class="card" style="background-color:rgba(14, 14, 14, 0.801)">
                                             <div class="card-header h5">
@@ -166,6 +168,7 @@
                                             </div>
                                           </div>
                                     </div>
+                                    @endif
                                 @endforeach
                             @endif
                         </div>
@@ -199,5 +202,36 @@
                 <!-- Back to Top -->
                 <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
             </div>
-        @endsection
-        
+
+            <script>
+                var refreshInterval = 10000; // 10 seconds
+                var isHovered = false; // Flag to track if button is hovered
+            
+                // Refreshes the page content by making an AJAX request
+                function refreshPage() {
+                    if (!isHovered) { // Check if button is not hovered
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('GET', window.location.href, true);
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                                // Extract the annonces HTML from the response
+                                var parser = new DOMParser();
+                                var responseDoc = parser.parseFromString(xhr.responseText, 'text/html');
+                                var annoncesHtml = responseDoc.getElementById('annoncesContainer').innerHTML;
+                                // Replace the existing annonces HTML with the updated content
+                                document.getElementById('annoncesContainer').innerHTML = annoncesHtml;
+                            }
+                        };
+                        xhr.send();
+                    }
+                }
+            
+ 
+            
+                // Set up the interval to refresh the page content
+                setInterval(refreshPage, refreshInterval);
+            </script>
+
+            @endsection
+            
+            

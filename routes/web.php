@@ -27,6 +27,8 @@ Route::get('/', function () {
 
 
 
+
+
 Route::group(['middleware' => ['auth', 'checkRole:investisseur']], function() {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

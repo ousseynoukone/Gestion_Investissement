@@ -55,9 +55,9 @@
     
   <div class="card col-md-12 mt-3 ">
     <div class=" rounded d-inline-block mb-2" style="width: 15rem;background-color:#DC143C;">
-      <a href="{{ route('investisseurs.index') }}" class="text-white mb-2">
-        <img src="{{ asset('build/imgs/arrow-left-solid.svg') }}" height="45"> Liste des investissements 
-        </a>
+      <a href="/" class="navbar-brand mx-4 mb-3">
+        <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>Entreprendre</h3>
+    </a>
     </div>
     
     <div class="card-header text-center">

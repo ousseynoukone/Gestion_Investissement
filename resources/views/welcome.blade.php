@@ -44,11 +44,14 @@
                     @endif
                     
                 </div>   
-                    @if (Route::has('login'))
-                    <li class="nav-item">
+                    @if (Auth::user()==null)
+
+                    
+                        <li class="nav-item">
                         <a href="{{ route('login') }}" style="color:aliceblue" class="ml-4 nav-link btn btn-primary btn-sm rounded">Connexion</a>
-                        </li>
-                    @endif              
+                        </li> 
+                    @endif
+                   
                     
                     
                 </ul>

@@ -8,10 +8,18 @@
     <link rel="stylesheet" href="template/index1.css">
 	<link rel="stylesheet" href="template/fontawesome-free-5.15.3-web/css/all.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-		
+	
+	<div class="bg-primary rounded" style="background-color: red;width:10rem;padding:1rem;border-radius:10px;">
+		<a href="/" class="navbar-brand ml-5 mx-4 mb-3">
+			<h2 class="text-primary"><i class="fa fa-user-edit me-2"></i>Accueil</h2>
+		</a>	
+	</div>
 <div class="container">
+
 	<div class="screen">
+
 		<div class="screen__content">
+
 			<form class="login" method="POST" action="{{ route('register') }}">
             @csrf
 				<!-- Name -->

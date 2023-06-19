@@ -11,7 +11,7 @@
             {{-- center side --}}
             <td>
                 <p data-id="{{ Auth::user()->id }}" data-type="user">Message sauvergardé <span>Toi</span></p>
-                <span>Sauvegarder discrétement le message</span>
+                <span>Message discrétement sauvegardé </span>
             </td>
         </tr>
     </table>

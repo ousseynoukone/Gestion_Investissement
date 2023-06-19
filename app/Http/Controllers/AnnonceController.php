@@ -22,7 +22,7 @@ class AnnonceController extends Controller
             $projets = Projet::where('user_id',Auth::user()->id)->get() ;
                         return view("pages.entrepreneurs.annonce",compact('annonces','projets'));
         }else if(Auth::user()->role=="investisseur"){
-            $annonces = Annonce::paginate(5);
+            $annonces = Annonce::paginate(7);
             return view('pages.investisseurs.annonce',compact('annonces'));
         }
     }

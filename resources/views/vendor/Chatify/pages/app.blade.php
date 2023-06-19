@@ -63,8 +63,13 @@
                 {{-- header buttons --}}
                 <nav class="m-header-right">
                     <a href="#" class="add-to-favorite"><i class="fas fa-star"></i></a>
-                    <a href="/"><i class="fas fa-home"></i></a>
-                    <a href="#" class="show-infoSide"><i class="fas fa-info-circle"></i></a>
+                    <a href="#" class="add-to-favorite"><i class="fas fa-star"></i></a>
+                    @if(Auth::user()->role=="entrepreneur")
+                    <a href="{{route('entrepreneurs.index')}}"><i class="fas fa-home"></i></a>
+                    @else
+                    <a href="{{route('investisseurs.index')}}"><i class="fas fa-home"></i></a>
+
+                    @endif                    <a href="#" class="show-infoSide"><i class="fas fa-info-circle"></i></a>
                 </nav>
             </nav>
             {{-- Internet connection --}}
@@ -101,7 +106,7 @@
     <div class="messenger-infoView app-scroll">
         {{-- nav actions --}}
         <nav>
-            <p>User Details</p>
+            <p> Details de l'utilisateur</p>
             <a href="#"><i class="fas fa-times"></i></a>
         </nav>
         {!! view('Chatify::layouts.info')->render() !!}

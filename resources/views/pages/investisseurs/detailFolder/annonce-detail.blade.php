@@ -150,7 +150,7 @@
       <div class="row">
       <div class="col-md-5">   
         
-           <a class="btn btn-primary mb-2 custom-button">Contacter {{$annonce->user->name}}</a>
+           <a href="/chatify/{{$annonce->user->id}}" class="btn btn-primary mb-2 custom-button">Contacter {{$annonce->user->name}}</a>
 
     
         @if(($annonce->projet->investissement != null && $annonce->projet->investissement->investisseur_id == Auth::user()->id ))

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnnonceController;
+use App\Http\Controllers\chatifyController;
 use App\Http\Controllers\InvestissementController;
 use App\Http\Controllers\ProjetController;
 
@@ -65,7 +66,8 @@ Route::group(['middleware' => ['auth', 'checkRole:entrepreneur']], function() {
 
 
 Route::middleware('auth')->group(function () {
-Route::resource('projets',ProjetController::class);
+    Route::resource('projets',ProjetController::class);
+    // Route::get('/chatify/{id]',[chatifyController::class,'sendMessage'])->name('send.message');
 Route::resource('annonces',AnnonceController::class);
 Route::resource('investissements',InvestissementController::class);
 

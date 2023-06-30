@@ -20,7 +20,7 @@
 
 		<div class="screen__content">
 
-			<form class="login" method="POST" action="{{ route('register') }}">
+			<form class="login" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
             @csrf
 				<!-- Name -->
 				<div class="login__field">
@@ -69,17 +69,27 @@
                                         name="password_confirmation" required autocomplete="new-password" />
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                 </div>
+	<div class="login__field bubble">
+		<i class="login__icon fas fa-user text-white">	<span style="color:rgb(180, 0, 0)"> Photo de profil</span>	
+		</i>
+		<br>
+		<input type="file" class="login__input" placeholder="	" id="photo" class="block mt-1 w-full"
+			name="photo" accept="image/*" />
+		<x-input-error :messages="$errors->get('photo')" class="mt-2" />
+	</div>
+
+
 				
-				<button class="button login__submit">
+				<button class="button login__submit" >
 					<span class="button__text">Inscription</span>
 					<i class="button__icon fas fa-chevron-right"></i>
-					<x-primary-button class="ml-4">
+					<x-primary-button class="ml-4 ">
 						{{ __('') }}
 					</x-primary-button>
 				</button>
               		
 			</form>
-			<div class="social-login">
+			<div class="social-login" style="padding-top:3rem;">
 				<h3>Connexion</h3>
                 <a style="color:aliceblue" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Déjà un compte?') }}

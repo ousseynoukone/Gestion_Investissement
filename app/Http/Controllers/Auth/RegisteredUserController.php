@@ -35,6 +35,8 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'photo' => ['image', 'max:2048'], 
+
         ]);
 
         $user = User::create([
@@ -44,6 +46,13 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $filename = uniqid() . '.' . $photo->getClientOriginalExtension();
+            $photo->storeAs('photos', $filename, 'public');
+            $user->update(['avatar' => $filename]);
+        }
+        
         event(new Registered($user));
 
         Auth::login($user);

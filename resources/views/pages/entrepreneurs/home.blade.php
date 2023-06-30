@@ -19,7 +19,14 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="{{asset('build/imgs/moi.png')}}" alt="" style="width: 40px; height: 40px;">
+                        @if(Auth::user()->avatar!="avatar.png")
+                        <img class="rounded-circle" src="                    {{asset('storage/photos'). '/'.Auth::user()->avatar}}
+                        " alt="" style="width: 40px; height: 40px;">
+
+@else
+<img class="rounded-circle" src="{{asset('build/imgs/moi.png')}}" alt="" style="width: 40px; height: 40px;">
+
+@endif
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
@@ -52,16 +59,25 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="/chatify" class="nav-link dropdown-toggle" >
-                            <i class="fa fa-envelope me-lg-2"></i>
+                            <i class="fa fa-envelope me-lg-2 " >  
+                            </i>
+                          
                             <span class="d-none d-lg-inline-flex">Message</span>
+                            <span id="numberOfMessage" class="badge alert-danger" style="color:#bb1c1c !important;" >           {{Auth::user()->unreadMessagesCount()}}</span> 
                         </a>
                  
                     </div>
-                
+
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle" src="{{asset('build/imgs/moi.png')}}" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">{{ Auth::user()->name }}</span>
+                            @if(Auth::user()->avatar != "avatar.png")
+                            <img class="rounded-circle" src="                    {{asset('storage/photos'). '/'.Auth::user()->avatar}}
+                            " alt="" style="width: 40px; height: 40px;">
+    
+    @else
+    <img class="rounded-circle" src="{{asset('build/imgs/moi.png')}}" alt="" style="width: 40px; height: 40px;">
+    
+    @endif                            <span class="d-none d-lg-inline-flex">{{ Auth::user()->name }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
 
@@ -238,22 +254,34 @@
     })
 
 
-                var refreshInterval = 10000; // 10 seconds
-                var isHovered = false; // Flag to track if button is hovered
+                var refreshInterval = 10000; 
+                var isHovered = false;
+                var check = false;
             
-                // Refreshes the page content by making an AJAX request
                 function refreshPage() {
-                    if (!isHovered) { // Check if button is not hovered
+                    if (!isHovered) { 
                         var xhr = new XMLHttpRequest();
                         xhr.open('GET', window.location.href, true);
                         xhr.onreadystatechange = function() {
                             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                                // Extract the annonces HTML from the response
                                 var parser = new DOMParser();
                                 var responseDoc = parser.parseFromString(xhr.responseText, 'text/html');
                                 var annoncesHtml = responseDoc.getElementById('investissementContainer').innerHTML;
-                                // Replace the existing annonces HTML with the updated content
+                                var numberOfMessage = responseDoc.getElementById('numberOfMessage').innerHTML;
+                                message1 = document.getElementById('numberOfMessage').innerText;
+
                                 document.getElementById('investissementContainer').innerHTML = annoncesHtml;
+                                document.getElementById('numberOfMessage').innerHTML = numberOfMessage;
+                                message2 = document.getElementById('numberOfMessage').innerText;
+
+
+
+                                 
+
+                                if((document.getElementById('numberOfMessage').innerText!="0" && check==false) || (document.getElementById('numberOfMessage').innerText!="0"&& message1<message2 ) ){
+                                    toastr.error("Vous avez reçu "+document.getElementById('numberOfMessage').innerText + " nouveau(x) message(s).");
+                                    check = true
+                                }
                             }
                         };
                         xhr.send();
@@ -262,7 +290,6 @@
             
  
             
-                // Set up the interval to refresh the page content
                 setInterval(refreshPage, refreshInterval);
 </script>
 @endsection

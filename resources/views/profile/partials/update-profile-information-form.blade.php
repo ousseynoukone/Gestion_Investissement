@@ -11,7 +11,7 @@
     @csrf
 </form>
 
-<form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+<form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
     @csrf
     @method('patch')
 
@@ -44,6 +44,15 @@
             </div>
         @endif
     </div>
+
+    <div class="login__field bubble">
+            <span style="color:rgb(180, 0, 0)">Changer de photo de profil</span>
+        <br>
+        <input type="file" class="login__input" title="Choisir une image" placeholder="" id="photo" class="block mt-1 w-full"
+            name="photo" accept="image/*" />
+        <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+    </div>
+    
 
     <div class="flex items-center gap-4">
         <x-primary-button>{{ __('Enregistrer') }}</x-primary-button>

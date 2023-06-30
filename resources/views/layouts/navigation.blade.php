@@ -18,8 +18,14 @@
                     @endif
                         <div   class="nav-item1 dropdown ml-5" >
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <img class="rounded-circle" src="{{asset('build/imgs/moi.png')}}" alt="" style="width: 40px; height: 40px;">
-                                <span class="d-none d-lg-inline-flex">{{ Auth::user()->name }}</span>
+                                @if(Auth::user()->avatar != "avatar.png")
+                                <img class="rounded-circle" src="                    {{asset('storage/photos'). '/'.Auth::user()->avatar}}
+    " alt="" style="width: 40px; height: 40px;">
+        
+        @else
+        <img class="rounded-circle" src="{{asset('build/imgs/moi.png')}}" alt="" style="width: 40px; height: 40px;">
+        
+        @endif                            <span class="d-none d-lg-inline-flex">{{ Auth::user()->name }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
     

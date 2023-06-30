@@ -532,7 +532,6 @@ $('#region_A_id').on('change', function() {
 
 
 
-
 function loadTrajet(id) {
     $('#region_D_id').empty()
     $('#region_A_id').empty()

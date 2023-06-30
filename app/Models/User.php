@@ -3,10 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Chatify\Facades\ChatifyMessenger as Chatify;
+use App\Models\ChMessage as Message;
 
 class User extends Authenticatable
 {
@@ -22,6 +25,8 @@ class User extends Authenticatable
         'role',
         'email',
         'password',
+        'avatar',
+
     ];
 
     /**
@@ -43,4 +48,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function unreadMessagesCount(){
+        $user = auth()->user();
+
+    return    $unreadCount = Message::where('to_id', $user->id)
+            ->where('seen', false)
+            ->count(); 
+     }
+
 }

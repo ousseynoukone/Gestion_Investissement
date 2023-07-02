@@ -282,6 +282,43 @@
             @endif
         })
 
+
+        var refreshInterval = 10000; 
+                var isHovered = false;
+                var check = false;
+            
+                function refreshPage() {
+                    if (!isHovered) { 
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('GET', window.location.href, true);
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                                var parser = new DOMParser();
+                                var responseDoc = parser.parseFromString(xhr.responseText, 'text/html');
+                                var numberOfMessage = responseDoc.getElementById('numberOfMessage').innerHTML;
+                                message1 = document.getElementById('numberOfMessage').innerText;
+
+                                document.getElementById('numberOfMessage').innerHTML = numberOfMessage;
+                                message2 = document.getElementById('numberOfMessage').innerText;
+
+
+
+                                 
+
+                                if((document.getElementById('numberOfMessage').innerText!="0" && check==false) || (document.getElementById('numberOfMessage').innerText!="0"&& message1<message2 ) ){
+                                    toastr.error("Vous avez reçu "+document.getElementById('numberOfMessage').innerText + " nouveau(x) message(s).");
+                                    check = true
+                                }
+                            }
+                        };
+                        xhr.send();
+                    }
+                }
+            
+ 
+            
+                setInterval(refreshPage, refreshInterval);
+
         
 
 

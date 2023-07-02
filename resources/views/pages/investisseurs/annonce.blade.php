@@ -163,7 +163,8 @@
             <script>
                 var refreshInterval = 10000; // 10 seconds
                 var isHovered = false; // Flag to track if button is hovered
-            
+                var check = false;
+
                 // Refreshes the page content by making an AJAX request
                 function refreshPage() {
                     if (!isHovered) { // Check if button is not hovered
@@ -175,8 +176,20 @@
                                 var parser = new DOMParser();
                                 var responseDoc = parser.parseFromString(xhr.responseText, 'text/html');
                                 var annoncesHtml = responseDoc.getElementById('annoncesContainer').innerHTML;
+                                var numberOfMessage = responseDoc.getElementById('numberOfMessage').innerHTML;
+                                message1 = document.getElementById('numberOfMessage').innerText;
+
                                 // Replace the existing annonces HTML with the updated content
                                 document.getElementById('annoncesContainer').innerHTML = annoncesHtml;
+                                
+                                document.getElementById('numberOfMessage').innerHTML = numberOfMessage;
+                                message2 = document.getElementById('numberOfMessage').innerText;
+
+
+                                if((document.getElementById('numberOfMessage').innerText!="0" && check==false) || (document.getElementById('numberOfMessage').innerText!="0"&& message1<message2 ) ){
+                                    toastr.error("Vous avez reçu "+document.getElementById('numberOfMessage').innerText + " nouveau(x) message(s).");
+                                    check = true
+                                }
                             }
                         };
                         xhr.send();

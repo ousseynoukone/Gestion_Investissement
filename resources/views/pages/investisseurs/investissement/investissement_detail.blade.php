@@ -125,9 +125,18 @@
     <div class="card mt-2">
       
       <div class="row">
-      <div class="col-md-5">   
+      <div class="col-md-3">   
 
         <a href="/chatify/{{$investissement->entrepreneur->id}}" class="btn btn-primary  custom-button">Contacter {{$investissement->entrepreneur->name}}</a>
+      </div>
+      <div class="col-md-3 ">   
+     @if ($investissement->projet->statut==0)
+       
+      <form action="{{route('investissements.create')}}" method="get">
+          <input type="text" name="id" hidden value="{{$investissement->id}}">
+        <button href="" class="btn btn-primary  custom-button">Annuler l'investissement </button>
+        </form>
+        @endif
 
 
       </div>
@@ -143,7 +152,12 @@
   </div>
   
 <script>
-        
+                window.addEventListener('load', function() {
+    @if (Session::has('tostr'))
+                  toastr.warning('{{ Session::get('tostr') }}');
+            @endif
+        })
+
         var refreshInterval = 10000; 
                 var isHovered = false;
                 var check = false;

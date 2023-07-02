@@ -154,7 +154,7 @@
 
     
         @if(($annonce->projet->investissement != null && $annonce->projet->investissement->investisseur_id == Auth::user()->id ))
-     <div class="badge alert-success">   Vous avez deja envoyé une proposition investissement  <img class="ml-4" src="{{ asset('build/imgs/succes.png') }}" height="30" alt="Validé"></div> 
+     <div class="badge alert-success">   Vous avez deja envoyé une proposition d'investissement  <img class="ml-4" src="{{ asset('build/imgs/succes.png') }}" height="30" alt="Validé"></div> 
 
         @else
         <a type="button" data-bs-toggle="modal" data-bs-target="#investirModal" class="btn btn-primary mb-2 custom-button" href="#add"  id="addInvesButton">Proposer un investissement</a>

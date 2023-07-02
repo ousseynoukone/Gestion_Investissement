@@ -55,6 +55,11 @@ class ProjetStatusController extends Controller
     {
         $projet = Projet::find($id);
 
+        if($projet->investissement->etat==0){
+            return (redirect()->back()->with('tostr',"Impossible de démarer un projet dont l'investissement n'as pas été validé ! "));
+
+        }
+
         if( $projet->Investissement!=null)  { 
             if($projet->statut==0)
             {

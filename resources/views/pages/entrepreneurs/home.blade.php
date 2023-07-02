@@ -63,7 +63,7 @@
                             </i>
                           
                             <span class="d-none d-lg-inline-flex">Message</span>
-                            <span id="numberOfMessage" class="badge alert-danger" style="color:#bb1c1c !important;" >           {{Auth::user()->unreadMessagesCount()}}</span> 
+                            <span id="numberOfMessage" class="badge alert-danger" style="color:#bb1c1c !important;">           {{Auth::user()->unreadMessagesCount()}}</span> 
                         </a>
                  
                     </div>

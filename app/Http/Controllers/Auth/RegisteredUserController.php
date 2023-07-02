@@ -40,6 +40,8 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = User::create([
+            'messenger_color' => "#ff2522",
+            'dark_mode' =>true,
             'name' => $request->name,
             'role' => $request->role,
             'email' => $request->email,
@@ -52,6 +54,7 @@ class RegisteredUserController extends Controller
             $photo->storeAs('photos', $filename, 'public');
             $user->update(['avatar' => $filename]);
         }
+        
         
         event(new Registered($user));
 

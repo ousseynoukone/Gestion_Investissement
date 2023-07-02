@@ -54,7 +54,9 @@ return [
     |-------------------------------------
     */
     'user_avatar' => [
-        'folder' => 'users-avatar',
+        'enabled' => true,
+
+        'folder' => 'photos',
         'default' => 'avatar.png',
     ],
 
@@ -67,7 +69,7 @@ return [
     |-------------------------------------
     */
     'gravatar' => [
-        'enabled' => true,
+        'enabled' => false,
         'image_size' => 200,
         'imageset' => 'identicon'
     ],

@@ -26,6 +26,8 @@ class User extends Authenticatable
         'email',
         'password',
         'avatar',
+        'messenger_color',
+        'dark_mode'
 
     ];
 

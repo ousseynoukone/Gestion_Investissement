@@ -1,5 +1,5 @@
 @include('Chatify::layouts.headLinks')
-<div class="messenger">
+<div  class="messenger">
     {{-- ----------------------Users/Groups lists side---------------------- --}}
     <div class="messenger-listView {{ !!$id ? 'conversation-active' : '' }}">
         {{-- Header and search bar --}}
@@ -21,7 +21,7 @@
             </div> --}}
         </div>
         {{-- tabs and lists --}}
-        <div class="m-body contacts-container">
+        <div id="contactLoad" class="m-body contacts-container">
            {{-- Lists [Users/Group] --}}
            {{-- ---------------- [ User Tab ] ---------------- --}}
            <div class="show messenger-tab users-tab app-scroll" data-view="users">
@@ -112,6 +112,39 @@
         {!! view('Chatify::layouts.info')->render() !!}
     </div>
 </div>
+
+<script>
+            
+            var refreshInterval = 10000; 
+                var isHovered = false;
+                var check = false;
+
+                // function refreshPage() {
+                //     if (!isHovered) { 
+                //         var xhr = new XMLHttpRequest();
+                //         xhr.open('GET', window.location.href, true);
+                //         xhr.onreadystatechange = function() {
+                //             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                //                 var parser = new DOMParser();
+                //                 var responseDoc = parser.parseFromString(xhr.responseText, 'text/html');
+                //                 var loader = responseDoc.getElementById('contactLoad').innerHTML;
+
+                //                 document.getElementById('contactLoad').innerHTML = loader;
+
+
+
+                         
+                //             }
+                //         };
+                //         xhr.send();
+                //     }
+                // }
+            
+ 
+            
+                // setInterval(refreshPage, refreshInterval);
+    
+</script>
 
 @include('Chatify::layouts.modals')
 @include('Chatify::layouts.footerLinks')

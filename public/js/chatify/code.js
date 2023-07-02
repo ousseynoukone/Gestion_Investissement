@@ -392,13 +392,16 @@ function IDinfo(id) {
           NProgress.remove();
           return;
         }
+        const imageUrl = data.user_avatar;
+        const imageUrlWithPort = imageUrl.replace("http://localhost", "http://localhost:8000");
+        
         // avatar photo
         $(".messenger-infoView")
           .find(".avatar")
-          .css("background-image", 'url("' + data.user_avatar + '")');
+          .css("background-image", 'url("' + imageUrlWithPort + '")');
         $(".header-avatar").css(
           "background-image",
-          'url("' + data.user_avatar + '")'
+          'url("' + imageUrlWithPort + '")'
         );
         // Show shared and actions
         $(".messenger-infoView-btns .delete-conversation").show();
@@ -503,14 +506,13 @@ function sendMessage() {
           sendContactItemUpdates(true);
         }
       },
-      error: () => {
+      error: (xhr, status, error) => {
         // message card error status
         errorMessageCard(tempID);
-        // error log
-        console.error(
-          "Failed sending the message! Please, check your server response."
-        );
-      },
+        // Log the full response for debugging
+        console.error("Failed sending the message!", xhr.responseJSON);
+      }
+      
     });
   }
   return false;
@@ -1561,6 +1563,7 @@ $(document).ready(function () {
           "background-image",
           'url("' + e.target.result + '")'
         );
+        console.log(e.target.result)
       }
     });
   });

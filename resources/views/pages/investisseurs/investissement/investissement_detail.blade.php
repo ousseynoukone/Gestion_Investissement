@@ -66,7 +66,7 @@
          Investissement
       
     </div>
-    <div class="card-body">
+    <div id="detailInvestissement" class="card-body">
       <h5 class="card-title">Entrepreneur : <span style="color:#DC143C">{{$investissement->entrepreneur->name}}</span> </h5>
    
       <div class="row">
@@ -143,6 +143,33 @@
   </div>
   
 <script>
+        
+        var refreshInterval = 10000; 
+                var isHovered = false;
+                var check = false;
 
+                function refreshPage() {
+                    if (!isHovered) { 
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('GET', window.location.href, true);
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                                var parser = new DOMParser();
+                                var responseDoc = parser.parseFromString(xhr.responseText, 'text/html');
+                                var detailInvestissement = responseDoc.getElementById('detailInvestissement').innerHTML;
+           
+
+                                document.getElementById('detailInvestissement').innerHTML = detailInvestissement;
+              
+
+                            }
+                        };
+                        xhr.send();
+                    }
+                }
+            
+ 
+            
+                setInterval(refreshPage, refreshInterval);
 </script>
 @endsection

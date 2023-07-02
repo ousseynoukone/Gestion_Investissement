@@ -175,7 +175,7 @@
                         <h6 class="mb-0">Les investissements effectués</h6>
                     </div>
                     <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <table id="investissement" class="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
                                 <tr class="text-white">
                                     <th scope="col">Montant</th>
@@ -256,9 +256,11 @@
                                 var parser = new DOMParser();
                                 var responseDoc = parser.parseFromString(xhr.responseText, 'text/html');
                                 var numberOfMessage = responseDoc.getElementById('numberOfMessage').innerHTML;
+                                var investissement = responseDoc.getElementById('investissement').innerHTML;
                                 message1 = document.getElementById('numberOfMessage').innerText;
 
                                 document.getElementById('numberOfMessage').innerHTML = numberOfMessage;
+                                document.getElementById('investissement').innerHTML = investissement;
                                 message2 = document.getElementById('numberOfMessage').innerText;
 
 

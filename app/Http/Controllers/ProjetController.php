@@ -119,7 +119,13 @@ class ProjetController extends Controller
      */
     public function destroy(projet $projet)
     {  
+
+        if($projet->annonce!=null || $projet->investissement!=null )
+        {
+            return redirect()->route('projets.index')->with('tostr',"Impossible de supprimer un projet qui une annonce ou un investissement ! ");
+        }
         $projet->delete();
+
         return(redirect()->route('projets.index'));
     }
 }

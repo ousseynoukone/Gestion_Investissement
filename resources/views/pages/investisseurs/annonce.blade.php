@@ -101,8 +101,9 @@
                     <div class="card bg-secondary rounded h-100 p-4">
                         <h6 class="mb-4">Les annonces</h6>
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 " id="annoncesContainer">
-                            @if (count($annonces) == 0)
-                                <div class="alert alert-danger text-center text-white"
+                            @if (count($annonces) == 0 || !$annonces->contains(function ($annonce) {
+                                return ($annonce->projet->investissement != null && $annonce->projet->investissement->etat == false) || $annonce->projet->investissement == null;
+                            }))                                <div class="alert alert-danger text-center text-white"
                                     style="background-color: #bb1c1c;">Aucune annonce publiée</div>
                             @else
                                 @foreach ($annonces as $annonce)

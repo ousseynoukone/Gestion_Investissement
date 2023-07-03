@@ -122,6 +122,19 @@
         @else
         
         <button type="submit" data-bs-toggle="modal" data-bs-target="#investirModal" class="btn btn-primary  custom-button" >Approuver</button>
+      </form>
+
+        <div class="mt-2">   
+          @if ($investissement->projet->statut==0)
+            
+           <form action="{{route('investissements.index')}}" method="get">
+               <input type="text" name="id" hidden value="{{$investissement->id}}">
+             <button href="" class="btn btn-primary  custom-button">Désaprouver</button>
+             </form>
+             @endif
+     
+       </div>
+
            @endif
 
       </div>
@@ -134,7 +147,6 @@
         </div>
 
 </div>
-</form>
   </div>
   
 <script>

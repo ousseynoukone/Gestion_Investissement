@@ -16,8 +16,19 @@ class InvestissementController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request )
     {
+        $id  = $request->get('id');
+        $investissement = investissement::find($id);
+        if($investissement->projet->statut==0)
+        {
+            
+            $investissement->delete();
+
+            return redirect()->route("entreprenneurs.index")->with('tostr',"Investissement annulé ! ");
+        }else {
+            return (redirect()->back()->with('tostr',"Annulation Impossible, Projet déjà démarré"));
+        }
 
 
     }
@@ -34,7 +45,7 @@ class InvestissementController extends Controller
             
             $investissement->delete();
 
-            return redirect()->route("investisseurs.index")->with('tostr',"Investissement annulé");
+            return redirect()->route("investisseurs.index")->with('tostr',"Investissement annulé ! ");
         }else {
             return (redirect()->back()->with('tostr',"Annulation Impossible, Projet déjà démarré"));
         }

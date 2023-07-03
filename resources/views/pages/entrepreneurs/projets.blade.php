@@ -1,5 +1,11 @@
 @extends('layout')
 @section('content')
+
+<link rel="stylesheet" href="template/sidebar.css">
+<link rel="stylesheet" href="template/fontawesome-free-5.15.3-web/css/all.min.css">
+<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+<body style="background-image: url({{asset('build/imgs/projet.jpg')}}); background-size: cover; ">
+
 <div class="container-fluid position-relative d-flex p-0">
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -44,7 +50,7 @@
 
 
     <!-- Content Start -->
-    <div class="content" style="background-image: url('{{ asset('build/imgs/projet.jpg') }}');background-size: cover;">
+    <div class="content" style="background:none;"  >
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
             <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
@@ -258,7 +264,8 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
-
+</div>
+</body>
     <script>
         window.addEventListener('load', function() {
     @if (Session::has('tostr'))

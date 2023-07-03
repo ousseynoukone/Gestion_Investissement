@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Investissement;
 use App\Models\Projet;
 use Illuminate\Http\Request;
 
@@ -54,14 +55,22 @@ class ProjetStatusController extends Controller
     public function update(Request $request, string $id)
     {
         $projet = Projet::find($id);
-        
+        $investissements = Investissement::where('projet_id',$projet->id)->get();
+         $check = false;
+        foreach ($investissements as  $investissement) {
 
-        if($projet->investissement->etat==0){
-            return (redirect()->back()->with('tostr',"Impossible de démarer un projet dont l'investissement n'as pas été validé ! "));
+            if($investissement->etat==0){
+                $check = true;
+            }
+        
+        }
+
+        if($check){
+            return redirect()->back()->with('tostr', "Impossible de démarrer un projet dont le ou les investissements n'ont pas été validés !");
 
         }
 
-        if( $projet->Investissement!=null)  { 
+        if( count($investissements)!=0)  { 
             if($projet->statut==0)
             {
                 $projet->statut=1;

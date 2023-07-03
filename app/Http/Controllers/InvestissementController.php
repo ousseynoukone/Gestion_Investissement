@@ -65,7 +65,7 @@ class InvestissementController extends Controller
             'montant' => 'required|numeric',
             'projet_id' => 'required|exists:projets,id',
             'conditions' => 'required|string|max:200',
-            'partDeParticipation' => 'required|string',
+            'partDeParticipation' => 'required|numeric|max:100|min:1',
                
         ]);
 

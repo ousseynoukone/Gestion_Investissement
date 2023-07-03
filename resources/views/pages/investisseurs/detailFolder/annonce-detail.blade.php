@@ -82,7 +82,7 @@
     
                 <div class="form-group mt-1">
                     <label for="partDeParticipation">Part de participation</label>
-                    <input type="number" class="form-control ajoutInvesModalShow @error('partDeParticipation') is-invalid @enderror" id="partDeParticipation" name="partDeParticipation" value="{{ old('partDeParticipation') }}">
+                    <input type="number" class="form-control ajoutInvesModalShow @error('partDeParticipation') is-invalid @enderror" id="partDeParticipation" min="0" max="100" name="partDeParticipation" value="{{ old('partDeParticipation') }}">
     
                     @error('partDeParticipation')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -170,6 +170,23 @@
 
 </div>
 <script>
+
+$(document).ready(function() {
+    var hasInvalidField = $('.form-control').hasClass('is-invalid') ;
+
+
+if (hasInvalidField) {
+    $('#investirModal').modal('show')
+}
+
+
+
+
+});
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     var hasInvalidField = document.querySelector('.ajoutInvesModalShow').classList.contains('is-invalid');
 

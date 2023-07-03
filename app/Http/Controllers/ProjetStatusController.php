@@ -54,7 +54,7 @@ class ProjetStatusController extends Controller
     public function update(Request $request, string $id)
     {
         $projet = Projet::find($id);
-        dd($projet->investissement);
+        
 
         if($projet->investissement->etat==0){
             return (redirect()->back()->with('tostr',"Impossible de démarer un projet dont l'investissement n'as pas été validé ! "));

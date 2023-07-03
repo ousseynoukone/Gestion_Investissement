@@ -23,9 +23,10 @@ class InvestissementController extends Controller
         if($investissement->projet->statut==0)
         {
             
-            $investissement->delete();
+            $investissement->entrepreneur_id=0;
+            $investissement->update();
 
-            return redirect()->route("entrepreneurs.index")->with('tostr',"Investissement annulé ! ");
+            return redirect()->route("entrepreneurs.index")->with('tostr',"Investissement désapprouvé ! ");
         }else {
             return (redirect()->back()->with('tostr',"Annulation Impossible, Projet déjà démarré"));
         }
@@ -62,7 +63,7 @@ class InvestissementController extends Controller
         $currentDate = new DateTime();
 
         $validatedData = $request->validate([
-            'montant' => 'required|numeric',
+            'montant' => 'required|numeric|min:500',
             'projet_id' => 'required|exists:projets,id',
             'conditions' => 'required|string|max:200',
             'partDeParticipation' => 'required|numeric|max:100|min:1',

@@ -67,7 +67,15 @@
       
     </div>
     <div id="detailInvestissement" class="card-body">
-      <h5 class="card-title">Entrepreneur : <span style="color:#DC143C">{{$investissement->entrepreneur->name}}</span> </h5>
+      <h5 class="card-title">Entrepreneur : <span style="color:#DC143C">
+        @if($investissement->entrepreneur)
+        {{$investissement->entrepreneur->name}}
+
+        @else
+     Votre demande d'investissement a été rejetté   <img src="{{ asset('build/imgs/remove.png') }}" height="30" alt="Non validé">
+
+        @endif
+      </span> </h5>
    
       <div class="row">
         <div class="card col-md-6">
@@ -126,8 +134,9 @@
       
       <div class="row">
       <div class="col-md-3">   
-
+        @if($investissement->entrepreneur)
         <a href="/chatify/{{$investissement->entrepreneur->id}}" class="btn btn-primary  custom-button">Contacter {{$investissement->entrepreneur->name}}</a>
+        @endif
       </div>
       <div class="col-md-3 ">   
      @if ($investissement->projet->statut==0)

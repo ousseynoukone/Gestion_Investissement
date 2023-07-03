@@ -134,7 +134,7 @@
                                         @foreach ($projets as  $projet)
                                         <tr>
                                             <td>{{ strlen($projet->libelle) > 15 ? substr($projet->libelle, 0, 15) . '...' : $projet->libelle }}</td>
-                                            <td>{{ strlen($projet->description) > 20 ? substr($projet->description, 0, 20) . '...' : $projet->description }}</td>
+                                            <td>{{ strlen($projet->description) > 15 ? substr($projet->description, 0, 15) . '...' : $projet->description }}</td>
 
                                             <td>{{$projet->cout}}</td>
 

@@ -192,7 +192,17 @@
                                     <tr>
                                         <td>{{ $investissement->montant }}</td>
                                         <td>{{ strlen($investissement->investisseur->name) > 10 ? substr($investissement->investisseur->name, 0, 10) . '...' : $investissement->investisseur->name }}</td>
+                                        @if($investissement->entrepreneur!=null)
+
                                         <td>{{ strlen($investissement->entrepreneur->name) > 10 ? substr($investissement->entrepreneur->name, 0, 10) . '...' : $investissement->entrepreneur->name }}</td>
+
+                                        @else
+                                        <td>
+                                           Demande Rejeté   <img src="{{ asset('build/imgs/remove.png') }}" height="30" alt="Non validé">
+
+                                        </td>
+
+                                        @endif
                                         <td>{{ strlen($investissement->projet->libelle) > 15 ? substr($investissement->projet->libelle, 0, 15) . '...' : $investissement->projet->libelle }}</td>
                                         <td>{{ $investissement->date_investissement }}</td>
                                         <td>

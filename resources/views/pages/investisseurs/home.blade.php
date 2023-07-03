@@ -15,7 +15,7 @@
         <!-- Spinner End -->
 
 
-        <!-- Sidebar Start -->
+        {{-- <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="/" class="navbar-brand mx-4 mb-3">
@@ -44,19 +44,92 @@
                 </div>
             </nav>
         </div>
-        <!-- Sidebar End -->
+        <!-- Sidebar End --> --}}
 
 
-        <!-- Content Start -->
-        <div class="content " style="background:none;"   >
-            <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+
+          <!-- Sidebar Start -->
+        
+          <div class="sidebare">
+            <div class="logo-details">
+                <div class="logo_name">
+                <a href="/" class="navbar-brand mx-4 mb-3">
+                 <h4 class="text-primary"><i class="fa fa-user-edit me-2"></i>Entreprendre</h4></a>
+                </div>
+                <i class='bx bx-menu' id="btn" ></i>
+            </div>
+            
+            <ul class="nav-list">
+            <li>
+                <i class='bx bx-search' ></i>
+                <input type="text" placeholder="Rechercher...">
+                <span class="tooltip" >Rechercher</span>
+            </li>
+            <li>
+                <a href="#">
+                <i class='bx bx-grid-alt'></i>
+                <span class="links_name">Dashboard</span>
                 </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+            <li>
+            <a href="#">
+            <a href="{{route('investisseurs.index')}}" >
+            <i class="fas fa-chart-line fa-ls"></i>
+                <span class="links_name">Investissement</span>
+            </a>
+            <span class="tooltip">Investissement</span>
+            </li>
+            
+    
+            <li>
+            <a href="{{route('annonces.index')}}">
+            <i class="fas fa-bullhorn"></i>
+                <span class="links_name">Mes annonces</span>
+            </a>
+            <span class="tooltip">Mes annonces</span>
+            </li>
+            <li>
+                <a href="/chatify">
+            
+            <i class="fas fa-comments"></i>
+                <span class="links_name">Messages</span>
+            </a>
+            <span class="tooltip">Messages</span>
+            </li>
+            
+            
+            <li>
+            <a href="#">
+            <i class="fas fa-cogs text-danger"></i>
+                <span class="links_name">Parametre</span>
+            </a>
+            <span class="tooltip">Parametre</span>
+            </li>
+            
+       </div> 
+
+   </li>              
+        </ul>
+            
+        </div>
+        
+        
+<!-- Sidebar End -->
+
+
+
+<div class="content" style="background:none;">
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand  navbar-dark sticky-top px-4 py-0" style="background: linear-gradient(90deg, rgba(25,28,36,1) 100%, rgba(31,34,42,0.9501925770308123) 100%, rgba(25,28,36,1) 100%);" >
+    <i class="fas fa-home fa-lg" style="color: rgb(187,11,11);"></i>
+
+    <div class="ms-3">
+                <h6 class="mb-0">{{ Auth::user()->name }}</h6>
+                
+                <span>Investisseur</span>
+            </div>
+            
    
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
@@ -242,6 +315,30 @@
     </div>
 
 </body>
+<script>
+    let sidebar = document.querySelector(".sidebare");
+    let closeBtn = document.querySelector("#btn");
+    let searchBtn = document.querySelector(".bx-search");
+
+    closeBtn.addEventListener("click", ()=>{
+        sidebar.classList.toggle("open");
+        menuBtnChange();//calling the function(optional)
+    });
+
+    searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
+        sidebar.classList.toggle("open");
+        menuBtnChange(); //calling the function(optional)
+    });
+
+    // following are the code to change sidebar button(optional)
+    function menuBtnChange() {
+    if(sidebar.classList.contains("open")){
+        closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+    }else {
+        closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+    }
+    }
+</script>
     <script>
         window.addEventListener('load', function() {
     @if (Session::has('tostr'))

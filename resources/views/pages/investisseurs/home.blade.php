@@ -43,7 +43,7 @@
 
 
         <!-- Content Start -->
-        <div class="content">
+        <div class="content" style="background-image: url('{{ asset('build/imgs/investisseur.jpg') }}');background-size: cover;">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
@@ -226,16 +226,7 @@
 
 
             <!-- Footer Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-secondary rounded-top p-4">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Entreprendre</a>, All Right Reserved. 
-                        </div>
-          
-                    </div>
-                </div>
-            </div>
+
             <!-- Footer End -->
         </div>
         <!-- Content End -->

@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="template/fontawesome-free-5.15.3-web/css/all.min.css">
         <link rel="stylesheet" href="template/index.css">
 
-
-        <div class="bg-primary rounded" style="background-color: red;width:10rem;padding:1rem;border-radius:10px;">
-            <a href="/" class="navbar-brand ml-5 mx-4 mb-3">
+        <div class="bg-primary  rounded" style="background-color: red;width:9rem; padding:0.4rem;border-radius:10px; display:inline-block; position:absolute; z-index:1; margin: 1rem;    " >
+            <a href="/" class="" style="text-decoration:none; color:rgb(255, 255, 255);">
                 <h2 class="text-primary"><i class="fa fa-user-edit me-2"></i>Accueil</h2>
             </a>	
         </div>
-<div class="container">
+
+        <div class="container" style="background-color: rgb(2, 1, 7) !important;">
 
 	<div class="screen">
 

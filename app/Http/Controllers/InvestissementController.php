@@ -25,7 +25,7 @@ class InvestissementController extends Controller
             
             $investissement->delete();
 
-            return redirect()->route("entreprenneurs.index")->with('tostr',"Investissement annulé ! ");
+            return redirect()->route("entrepreneurs.index")->with('tostr',"Investissement annulé ! ");
         }else {
             return (redirect()->back()->with('tostr',"Annulation Impossible, Projet déjà démarré"));
         }

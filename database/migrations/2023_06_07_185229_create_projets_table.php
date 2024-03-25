@@ -19,9 +19,6 @@ return new class extends Migration
             $table->date('date_debut');
             $table->date('date_fin');
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('annonce_id')->nullable()->constrained();
-            $table->foreignId('investissement_id')->nullable()->constrained();
-
             $table->integer('statut')->default(0);
             $table->timestamps();  
         });
